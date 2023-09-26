@@ -9,4 +9,5 @@ export default Main;
 
 const Container = styled.div`
   display: flex;
+  font-family: 'InteropRegular';
 `;

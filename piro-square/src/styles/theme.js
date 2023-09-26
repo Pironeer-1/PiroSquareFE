@@ -1,7 +1,9 @@
 const theme = {
   colors: {
-    greenBgColor: '#E5F3DF',
-    greenPrimaryColor: '#65A060',
+    green: '#OBEC12',
+    grayLight: '#A3A3A3',
+    grayDark: '#2C2D2E',
+    black: '#1C1C1D',
   },
 };
 
