@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import Dots from './Dots.js';
 import Footer from '../../components/Footer/Footer';
 
-import './Main.css';
-
 const DIVIDER_HEIGHT = 5;
 
 function Main() {
@@ -91,11 +89,9 @@ function Main() {
       <Container ref={outerDivRef} className="outer">
         <Dots scrollIndex={scrollIndex} />
         <Section className="inner">피로그래머들을 위한 커뮤니티</Section>
-        <div className="divider"></div>
         <Section className="inner">
           <img src="images/Nav/piro_logo.png" style={{ width: '200px' }} />
         </Section>
-        <div className="divider"></div>
         <Section className="inner">PIROSQUARE</Section>
       </Container>{' '}
       <Footer />
@@ -106,9 +102,12 @@ function Main() {
 export default Main;
 
 const Container = styled.div`
-  background-color: ${props => props.theme.colors.grayLight};
+  background-color: black;
   height: 100vh;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 const Section = styled.div`
