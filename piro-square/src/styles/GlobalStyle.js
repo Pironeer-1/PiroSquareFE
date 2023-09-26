@@ -36,12 +36,15 @@ const GlobalStyle = createGlobalStyle`
 
   * {
     box-sizing: border-box;
-    background-color: #000;
     color : #fff;
-      font-family: 'InteropMedium';
+    font-family: 'InteropLight';
   }
 
 
+  body {
+  background-color: #000;
+  }
+  
   a {
     text-decoration: none;
     color: black;
