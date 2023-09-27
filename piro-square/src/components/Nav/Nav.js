@@ -5,7 +5,7 @@ import { Link, useLocation } from 'react-router-dom';
 const NAV_LIST = [
   { id: 1, title: '자유게시판', link: '/free' },
   { id: 2, title: '질문', link: '/question' },
-  { id: 3, title: '모집/채용', link: '/recruit' },
+  { id: 3, title: '모집/채용', link: '/recruit-study' },
   { id: 4, title: '공지', link: '/anounce' },
 ];
 const Nav = () => {
@@ -17,7 +17,7 @@ const Nav = () => {
       location.pathname.startsWith(item.link),
     );
     if (location.pathname === '/') {
-      setActiveMenu(''); // '/' 인 경우, activeMenu를 빈 문자열로 설정
+      setActiveMenu('');
     } else if (matchingMenu) {
       setActiveMenu(matchingMenu.link);
     }
@@ -30,7 +30,6 @@ const Nav = () => {
           <LogoPhrase>PIROSQUARE</LogoPhrase>
         </LogoSection>
         <MenuSection>
-          {' '}
           {NAV_LIST.map(item => (
             <MenuList
               key={item.id}
