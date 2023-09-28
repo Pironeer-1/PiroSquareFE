@@ -3,12 +3,19 @@ import styled from 'styled-components';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import FilterBtn from '../../components/Button/FilterBtn/FilterBtn';
 import FreeCard from './FreeCard';
+import { useNavigate } from 'react-router-dom';
 
 const Free = () => {
   const [isRightPosition, setIsRightPosition] = useState(false);
 
   const handleFilterBtnClick = () => {
     setIsRightPosition(!isRightPosition);
+  };
+
+  const navigate = useNavigate();
+
+  const handleWriteBtnClick = () => {
+    navigate('/write');
   };
 
   const [frees, setFrees] = useState([]);
@@ -61,7 +68,7 @@ const Free = () => {
             </FilterName>
           </FilterBox>
 
-          <WriteBtn>글쓰기</WriteBtn>
+          <WriteBtn onClick={handleWriteBtnClick}>글쓰기</WriteBtn>
         </TopSection>
         <BottomSection>
           {currentItems.map(Free => {

@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import 'react-quill/dist/quill.snow.css';
-import WriteTopSection from './WriteTopSection/WriteTopSection';
-import Register from './Register';
-import Quil from './Quil';
+import WriteTopSection from '../WriteTopSection/WriteTopSection';
+import Register from '../Register';
+import Quil from '../Quil';
 
-const Write = () => {
+const WriteProject = () => {
   return (
     <Container>
-      <Title>자유 게시판 글쓰기</Title>
+      <Title>프로젝트 모집</Title>
       <WriteTopSection />
       <QuilContainer>
         <Quil />
@@ -18,7 +18,7 @@ const Write = () => {
   );
 };
 
-export default Write;
+export default WriteProject;
 
 const Container = styled.div`
   display: flex;
