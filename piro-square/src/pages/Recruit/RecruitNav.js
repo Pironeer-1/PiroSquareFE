@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Link, useLocation } from 'react-router-dom';
+import FilterBtn from '../../components/Button/FilterBtn/FilterBtn';
 
 const MENU_LIST = [
   { id: 1, title: '스터디 모집', link: '/recruit-study' },
@@ -10,6 +11,11 @@ const MENU_LIST = [
 const RecruitNav = () => {
   const location = useLocation();
   const [activeMenu, setActiveMenu] = useState('');
+  const [isRightPosition, setIsRightPosition] = useState(false);
+
+  const handleFilterBtnClick = () => {
+    setIsRightPosition(!isRightPosition);
+  };
 
   React.useEffect(() => {
     const matchingMenu = MENU_LIST.find(item =>
@@ -21,6 +27,8 @@ const RecruitNav = () => {
       setActiveMenu(matchingMenu.link);
     }
   }, [location.pathname]);
+
+  const availabilityClassName = isRightPosition ? 'greenWord' : 'grayWord';
 
   return (
     <Container>
@@ -38,6 +46,15 @@ const RecruitNav = () => {
             </Option>
           ))}
         </Options>
+        <FilterBox>
+          <FilterBtn
+            onClick={handleFilterBtnClick}
+            isRightPosition={isRightPosition}
+          />
+          <FilterName className={availabilityClassName}>
+            {isRightPosition ? '모집' : '전체'}
+          </FilterName>
+        </FilterBox>
       </TopSection>
     </Container>
   );
@@ -48,6 +65,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  margin: 0 auto;
 `;
 
 const Title = styled.h1`
@@ -57,7 +75,7 @@ const Title = styled.h1`
 `;
 
 const TopSection = styled.div`
-  margin: 2rem auto;
+  margin: 2rem auto 1rem auto;
   display: flex;
   justify-content: space-between;
   width: 50rem;
@@ -88,7 +106,6 @@ const Options = styled.div`
   justify-content: center;
   align-items: center;
   margin: 0 auto;
-  padding-right: 6rem;
 `;
 
 const Option = styled(Link)`
@@ -111,5 +128,28 @@ const Option = styled(Link)`
   &:hover {
     background-color: #0bec12;
     color: black;
+  }
+`;
+
+const FilterBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 3rem;
+  margin: auto;
+`;
+
+const FilterName = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5px;
+  color: ${props => props.theme.colors.grayLight};
+  &.greenWord {
+    color: ${props => props.theme.colors.green};
+  }
+
+  &.grayWord {
+    color: ${props => props.theme.colors.grayLight};
   }
 `;

@@ -1,47 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
+import LikeBtn from '../../components/Button/LikeBtn/LikeBtn';
 
-const CompanyCard = ({
+const FreeCard = ({
   id,
   title,
   username,
   created_at,
-  activate,
-  personnel,
+  answers_amount,
+  is_user_like,
+  like_amount,
+  thumbnail,
 }) => {
-  const availabilityClassName = activate ? 'greenWord' : 'grayWord';
-  const availibilityImg = activate
-    ? '/images/Main/Vector_g.png'
-    : '/images/Main/Vector.png';
-
   return (
-    <CardBox>
-      <CompanyIcon>
-        <CompanyImg src={availibilityImg} />
-      </CompanyIcon>
+    <FreeBox>
+      <FreeIcon>
+        <FreeImg src={thumbnail} />
+      </FreeIcon>
       <Container>
         <CardTitle>{title}</CardTitle>
         <CardBottom>
           <CardAuthor>{username}</CardAuthor>
-          <CardPersonnel>
-            <PersonnelSpan>모집 인원</PersonnelSpan>
-            {personnel}
-          </CardPersonnel>
+          <CardAnswers>
+            <AnswersSpan>답변:</AnswersSpan>
+            {answers_amount}
+          </CardAnswers>
           <CardDate>{created_at}</CardDate>
         </CardBottom>
       </Container>
-      <CompanyAvailable className={availabilityClassName}>
-        {activate ? '채용중' : '마감'}
-      </CompanyAvailable>
-    </CardBox>
+      <RightSection>
+        <LikeBtn initialLike={is_user_like} likeAmount={like_amount} />
+      </RightSection>
+    </FreeBox>
   );
 };
 
-export default CompanyCard;
+export default FreeCard;
 
-const CardBox = styled.div`
+const FreeBox = styled.div`
   display: grid;
-  grid-template-columns: 5rem 44rem 5rem;
+  grid-template-columns: 5rem 43rem 7rem;
   margin-top: 1rem;
   background-color: ${props => props.theme.colors.grayDark};
   border-radius: 10px;
@@ -49,14 +47,15 @@ const CardBox = styled.div`
   height: 5rem;
 `;
 
-const CompanyIcon = styled.div`
+const FreeIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
 
-const CompanyImg = styled.img`
-  width: 35px;
+const FreeImg = styled.img`
+  width: 40px;
+  height: 40px;
 `;
 
 const Container = styled.div`
@@ -66,7 +65,6 @@ const Container = styled.div`
   justify-content: center;
   &:hover {
     cursor: pointer;
-    background-color: ${props => props.theme.colors.black};
   }
 `;
 
@@ -87,12 +85,14 @@ const CardAuthor = styled.div`
   color: ${props => props.theme.colors.grayLight};
 `;
 
-const CardPersonnel = styled.div`
+const CardAnswers = styled.div`
   margin-left: 10px;
+  color: ${props => props.theme.colors.grayLight};
 `;
 
-const PersonnelSpan = styled.span`
-  margin-right: 5px;
+const AnswersSpan = styled.span`
+  margin-right: 3px;
+  color: ${props => props.theme.colors.grayLight};
 `;
 
 const CardDate = styled.div`
@@ -100,17 +100,8 @@ const CardDate = styled.div`
   color: ${props => props.theme.colors.grayLight};
 `;
 
-const CompanyAvailable = styled.div`
+const RightSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  color: ${props => props.theme.colors.green};
-
-  &.greenWord {
-    color: ${props => props.theme.colors.green};
-  }
-
-  &.grayWord {
-    color: ${props => props.theme.colors.grayLight};
-  }
 `;

@@ -41,11 +41,11 @@ export default StudyCard;
 
 const CardBox = styled.div`
   display: grid;
-  grid-template-columns: 5rem 38rem 7rem;
+  grid-template-columns: 5rem 44rem 5rem;
   margin-top: 1rem;
   background-color: ${props => props.theme.colors.grayDark};
   border-radius: 10px;
-  width: 50rem;
+  width: 55rem;
   height: 5rem;
 `;
 
@@ -66,7 +66,6 @@ const Container = styled.div`
   justify-content: center;
   &:hover {
     cursor: pointer;
-    background-color: ${props => props.theme.colors.black};
   }
 `;
 

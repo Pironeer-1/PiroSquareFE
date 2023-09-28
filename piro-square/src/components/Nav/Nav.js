@@ -41,7 +41,7 @@ const Nav = () => {
           ))}
         </MenuSection>
       </RightSection>
-      <UserSection>
+      <UserSection to="/my-page">
         <UserImg src="/images/Nav/sample_img.png" />
         <UserName>김피로</UserName>
       </UserSection>
@@ -59,13 +59,14 @@ const RightSection = styled.div`
   display: flex;
   margin-left: 10px;
 `;
+
 const LogoSection = styled(Link)`
   display: flex;
   margin: 1rem;
 `;
 
 const LogoImg = styled.img`
-  width: 2.2rem;
+  width: 3rem;
 `;
 
 const LogoPhrase = styled.div`
@@ -102,11 +103,19 @@ const MenuList = styled(Link)`
   }
 `;
 
-const UserSection = styled.div`
+const UserSection = styled(Link)`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 3rem;
+  margin: 1rem 3rem;
+  border: 1px solid #2c2d2e;
+  border-radius: 30px;
+  height: 3rem;
+  width: 7rem;
+  &:hover {
+    color: #ffffff;
+    background-color: #a3a3a3;
+  }
 `;
 
 const UserImg = styled.img`
