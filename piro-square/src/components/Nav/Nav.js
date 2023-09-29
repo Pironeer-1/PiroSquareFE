@@ -41,7 +41,7 @@ const Nav = () => {
           ))}
         </MenuSection>
       </RightSection>
-      <UserSection to="/my-page">
+      <UserSection to="/my-page/update">
         <UserImg src="/images/Nav/sample_img.png" />
         김피로
       </UserSection>
