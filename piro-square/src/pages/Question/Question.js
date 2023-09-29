@@ -3,9 +3,14 @@ import styled from 'styled-components';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import FilterBtn from '../../components/Button/FilterBtn/FilterBtn';
 import QuestionCard from './QuestionCard';
+import { useNavigate } from 'react-router-dom';
 
 const Question = () => {
   const [isRightPosition, setIsRightPosition] = useState(false);
+  const navigate = useNavigate();
+  const handleWriteBtnClick = () => {
+    navigate('/write/question');
+  };
 
   const handleFilterBtnClick = () => {
     setIsRightPosition(!isRightPosition);
@@ -58,8 +63,7 @@ const Question = () => {
               {isRightPosition ? '해결' : '전체'}
             </FilterName>
           </FilterBox>
-
-          <AskBtn>질문하기</AskBtn>
+          <AskBtn onClick={handleWriteBtnClick}>질문하기</AskBtn>
         </TopSection>
         <BottomSection>
           {currentItems.map(question => {
@@ -135,7 +139,7 @@ const AskBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: white solid 1px;
+  border: white solid 2px;
   color: white;
   padding: 6px;
   font-size: 16px;

@@ -82,7 +82,12 @@ function Main() {
             alt="piroLogo"
           />
         </Section>
-        <Section className="inner">PIROSQUARE</Section>
+        <Section
+          className="inner"
+          style={{ fontFamily: 'Hubballi', fontSize: '40px' }}
+        >
+          PIROSQUARE
+        </Section>
       </Container>{' '}
       <Footer />
     </>

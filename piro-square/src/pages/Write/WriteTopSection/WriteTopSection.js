@@ -17,7 +17,6 @@ const WriteTopSection = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Find the matching menu item based on location.pathname
     const matchedMenuItem = WRITE_MENU.find(
       menuItem => location.pathname === menuItem.link,
     );
@@ -38,9 +37,17 @@ const WriteTopSection = () => {
   };
 
   const handleBoardChange = e => {
-    const newSelectedBoard = e.target.value;
-    setSelectedBoard(newSelectedBoard);
-    navigate(newSelectedBoard);
+    const confirmation = window.confirm(
+      '현재까지 작성한 내용이 사라질 수도 있습니다. 게시판 이동을 선택하시겠습니까?',
+    );
+
+    if (confirmation) {
+      const newSelectedBoard = e.target.value;
+      setSelectedBoard(newSelectedBoard);
+      navigate(newSelectedBoard);
+    } else {
+      e.target.value = selectedBoard;
+    }
   };
   return (
     <Container>
@@ -56,7 +63,6 @@ const WriteTopSection = () => {
         </TitleSection>
         <FilterSection>
           <SelectBoard onChange={handleBoardChange} value={selectedBoard}>
-            <option value="">게시판 선택</option>
             {WRITE_MENU.map(board => (
               <option key={board.id} value={board.link}>
                 {board.title}

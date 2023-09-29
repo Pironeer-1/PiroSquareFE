@@ -43,7 +43,7 @@ const Nav = () => {
       </RightSection>
       <UserSection to="/my-page">
         <UserImg src="/images/Nav/sample_img.png" />
-        <UserName>김피로</UserName>
+        김피로
       </UserSection>
     </Container>
   );
@@ -72,8 +72,8 @@ const LogoImg = styled.img`
 const LogoPhrase = styled.div`
   display: flex;
   align-items: center;
-  font-size: 18px;
-  font-family: 'InteropExtraLight';
+  font-size: 24px;
+  font-family: 'Hubballi';
   margin-left: 1rem;
 `;
 
@@ -110,20 +110,17 @@ const UserSection = styled(Link)`
   margin: 1rem 3rem;
   border: 1px solid #2c2d2e;
   border-radius: 30px;
+  color: white;
   height: 3rem;
-  width: 7rem;
+  padding: 12px;
+  white-space: nowrap;
   &:hover {
-    color: #ffffff;
-    background-color: #a3a3a3;
+    color: black;
+    background-color: white;
   }
 `;
 
 const UserImg = styled.img`
   width: 1.2rem;
   margin-right: 0.5rem;
-`;
-
-const UserName = styled.div`
-  white-space: nowrap;
-  font-family: 'InteropLight';
 `;

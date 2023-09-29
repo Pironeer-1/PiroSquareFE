@@ -19,7 +19,7 @@ const RegisterBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: #0bec12 solid 1px;
+  border: #0bec12 solid 2px;
   color: ${props => props.theme.colors.green};
   margin-left: 5px;
   margin-bottom: 10px;

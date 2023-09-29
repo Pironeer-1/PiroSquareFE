@@ -15,6 +15,10 @@ import WriteQuestion from './pages/Write/WriteQuestion/WriteQuestion';
 import WriteCompany from './pages/Write/WriteRecruit/WriteCompany';
 import WriteStudy from './pages/Write/WriteRecruit/WriteStudy';
 import WriteProject from './pages/Write/WriteRecruit/WriteProject';
+import MypageMylike from './pages/Mypage/MypageMylike/MypageMylike';
+import MypageMycomment from './pages/Mypage/MypageMycomment/MypageMycomment';
+import MypageUpdate from './pages/Mypage/MypageUpdate/MypageUpdate';
+import MypageMypost from './pages/Mypage/MypageMypost/MypageMypost';
 
 const RouteWithNavFooter = () => {
   return (
@@ -23,7 +27,7 @@ const RouteWithNavFooter = () => {
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/free" element={<Free />} />
-        <Route path="/my-page" element={<Mypage />} />
+        <Route path="/my-page/card" element={<Mypage />} />
         <Route path="/question" element={<Question />} />
         <Route path="/recruit-study" element={<Study />} />
         <Route path="/recruit-project" element={<Project />} />
@@ -35,6 +39,10 @@ const RouteWithNavFooter = () => {
         <Route path="/write/recruit/study" element={<WriteStudy />} />
         <Route path="/write/recruit/company" element={<WriteCompany />} />
         <Route path="/write/recruit/project" element={<WriteProject />} />
+        <Route path="/my-page/my-like" element={<MypageMylike />} />
+        <Route path="/my-page/my-comment" element={<MypageMycomment />} />
+        <Route path="/my-page/update" element={<MypageUpdate />} />
+        <Route path="/my-page/my-post" element={<MypageMypost />} />
       </Routes>
     </>
   );

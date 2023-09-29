@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import FilterBtn from '../../components/Button/FilterBtn/FilterBtn';
 
 const MENU_LIST = [
@@ -10,6 +10,7 @@ const MENU_LIST = [
 ];
 const RecruitNav = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState('');
   const [isRightPosition, setIsRightPosition] = useState(false);
 
@@ -30,11 +31,33 @@ const RecruitNav = () => {
 
   const availabilityClassName = isRightPosition ? 'greenWord' : 'grayWord';
 
+  const handlePostBtnClick = () => {
+    let newLocation = '';
+
+    switch (location.pathname) {
+      case '/recruit-study':
+        newLocation = '/write/recruit/study';
+        break;
+      case '/recruit-project':
+        newLocation = '/write/recruit/project';
+        break;
+      case '/recruit-company':
+        newLocation = '/write/recruit/company';
+        break;
+      default:
+        break;
+    }
+
+    if (newLocation) {
+      navigate(newLocation);
+    }
+  };
+
   return (
     <Container>
       <Title>모집 / 공고</Title>
       <TopSection>
-        <PostBtn>글쓰기</PostBtn>
+        <PostBtn onClick={handlePostBtnClick}>글쓰기</PostBtn>
         <Options>
           {MENU_LIST.map(item => (
             <Option
@@ -86,7 +109,7 @@ const PostBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: white solid 1px;
+  border: white solid 2px;
   color: white;
   padding: 6px;
   font-size: 16px;
@@ -114,7 +137,7 @@ const Option = styled(Link)`
   align-items: center;
   width: 7rem;
   height: 3rem;
-  border: 1px solid #0bec12;
+  border: 2px solid #0bec12;
   border-radius: 30px;
   padding: 6px;
   margin: 0px 1rem;

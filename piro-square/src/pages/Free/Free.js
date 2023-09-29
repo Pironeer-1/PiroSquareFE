@@ -144,7 +144,7 @@ const WriteBtn = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
-  border: white solid 1px;
+  border: white solid 2px;
   color: white;
   padding: 6px;
   font-size: 16px;
