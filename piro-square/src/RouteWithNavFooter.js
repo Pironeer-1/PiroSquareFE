@@ -19,6 +19,7 @@ import MypageMylike from './pages/Mypage/MypageMylike/MypageMylike';
 import MypageMycomment from './pages/Mypage/MypageMycomment/MypageMycomment';
 import MypageUpdate from './pages/Mypage/MypageUpdate/MypageUpdate';
 import MypageMypost from './pages/Mypage/MypageMypost/MypageMypost';
+import FreeDetail from './pages/Free/FreeDetail/FreeDetail';
 
 const RouteWithNavFooter = () => {
   return (
@@ -43,6 +44,7 @@ const RouteWithNavFooter = () => {
         <Route path="/my-page/my-comment" element={<MypageMycomment />} />
         <Route path="/my-page/update" element={<MypageUpdate />} />
         <Route path="/my-page/my-post" element={<MypageMypost />} />
+        <Route path="/free-detail/:id" element={<FreeDetail />} />
       </Routes>
     </>
   );
