@@ -3,11 +3,18 @@ import styled from 'styled-components';
 import MypageNav from './MypageNav';
 import html2canvas from 'html2canvas';
 
-const FrontImgBase64 =
-  'https://s3.orbi.kr/data/file/united2/0776793644b24ef3a34b54e4546dee69.png';
-
 const Mypage = () => {
+  const [information, setInformation] = useState([]);
+  useEffect(() => {
+    fetch('/data/userData.json')
+      .then(response => response.json())
+      .then(result => {
+        setInformation(result);
+      });
+  }, []);
   const CardRef = useRef(null);
+
+  const FrontImgBase64 = information.image;
 
   const handleCapture = () => {
     html2canvas(CardRef.current, {
@@ -35,25 +42,28 @@ const Mypage = () => {
               <PhraseImg src="/images/Mypage/PIROGRAMMING.png" />
             </LogoSection>
             <ContentSection>
-              <NickName>서판교칼바람</NickName>
-              <Introduce>함께 성장의 가치를 믿습니다.</Introduce>
-              <Contact>pirogrammerwow@naver.com</Contact>
+              <NickName>{information.nickname}</NickName>
+              <Introduce>{information.introduce}</Introduce>
+              <Contact>{information?.email}</Contact>
             </ContentSection>
           </BackSection>
         </Card>
-        <RightCard>
+        <RightCard style={{ backgroundImage: `url(${FrontImgBase64})` }}>
           <FrontSection>
             <FrontInformation>
               <FrontImg src="/images/Nav/piro_logo.png" />
-              <FrontName>광밍경</FrontName>
+              <FrontName>{information.name}</FrontName>
               <FrontChapter>
-                Pirogrammer <ChapterNumber>20</ChapterNumber>
+                Pirogrammer <ChapterNumber>{information.year}</ChapterNumber>
               </FrontChapter>
             </FrontInformation>
           </FrontSection>
         </RightCard>
       </CardSection>
-      <CardCapture onClick={handleCapture}>캡쳐하기</CardCapture>
+      <CardCapture onClick={handleCapture}>
+        캡쳐하기
+        <CaptureImg src="/images/Mypage/photo-capture_g.png" />
+      </CardCapture>
     </Container>
   );
 };
@@ -80,6 +90,9 @@ const Card = styled.div`
   height: 28rem;
   background-color: ${props => props.theme.colors.black};
   border-radius: 10px;
+  box-shadow:
+    0 3px 6px rgba(0, 0, 0, 0.16),
+    0 3px 6px rgba(0, 0, 0, 0.23);
 `;
 
 const RightCard = styled.div`
@@ -87,9 +100,9 @@ const RightCard = styled.div`
   justify-content: center;
   width: 22rem;
   height: 28rem;
+  opacity: 0.8;
   background-size: cover;
   background-position: center;
-  background-image: url(${FrontImgBase64});
   background-color: ${props => props.theme.colors.grayLight};
   border-radius: 10px;
   z-index: 1;
@@ -130,6 +143,8 @@ const NickName = styled.h1`
 const Introduce = styled.div`
   margin-top: 2rem;
   min-height: 18rem;
+  font-size: 18px;
+  word-break: break-all;
 `;
 
 const Contact = styled.div`
@@ -146,6 +161,9 @@ const FrontSection = styled.div`
   background-color: ${props => props.theme.colors.black};
   margin-top: auto;
   border-radius: 120px 0 10px 5px;
+  box-shadow:
+    5px 19px 38px rgba(0, 0, 0, 0.3),
+    5px 15px 12px rgba(0, 0, 0, 0.22);
 `;
 
 const FrontInformation = styled.div`
@@ -186,9 +204,9 @@ const CardCapture = styled.button`
   align-items: center;
   border: #0bec12 solid 2px;
   color: ${props => props.theme.colors.green};
-  margin: 0 auto;
+  margin: 10px auto;
   padding: 10px;
-  font-size: 24px;
+  font-size: 20px;
   width: 10rem;
   height: 4rem;
   border-radius: 30px;
@@ -197,5 +215,14 @@ const CardCapture = styled.button`
   &:hover {
     background-color: ${props => props.theme.colors.green};
     color: black;
+
+    & > img {
+      content: url('/images/Mypage/photo-capture.png');
+    }
   }
+`;
+
+const CaptureImg = styled.img`
+  width: 25px;
+  margin-left: 5px;
 `;
