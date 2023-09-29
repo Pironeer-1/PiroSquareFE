@@ -7,10 +7,10 @@ const FreeCard = ({
   title,
   username,
   created_at,
-  answers_amount,
   is_user_like,
   like_amount,
   thumbnail,
+  comment_count,
 }) => {
   return (
     <FreeBox>
@@ -21,11 +21,12 @@ const FreeCard = ({
         <CardTitle>{title}</CardTitle>
         <CardBottom>
           <CardAuthor>{username}</CardAuthor>
-          <CardAnswers>
-            <AnswersSpan>답변:</AnswersSpan>
-            {answers_amount}
-          </CardAnswers>
+
           <CardDate>{created_at}</CardDate>
+          <CardComment>
+            <CommentImg src="/images/Mypage/chat_g.png" />
+            {comment_count}
+          </CardComment>
         </CardBottom>
       </Container>
       <RightSection>
@@ -82,20 +83,14 @@ const CardBottom = styled.div`
 `;
 
 const CardAuthor = styled.div`
-  color: ${props => props.theme.colors.grayLight};
-`;
-
-const CardAnswers = styled.div`
-  margin-left: 10px;
-  color: ${props => props.theme.colors.grayLight};
-`;
-
-const AnswersSpan = styled.span`
-  margin-right: 3px;
+  display: flex;
+  align-items: center;
   color: ${props => props.theme.colors.grayLight};
 `;
 
 const CardDate = styled.div`
+  display: flex;
+  align-items: center;
   margin-left: 0.5rem;
   color: ${props => props.theme.colors.grayLight};
 `;
@@ -104,4 +99,17 @@ const RightSection = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+const CardComment = styled.div`
+  display: flex;
+  align-items: center;
+  margin-left: 0.5rem;
+  color: ${props => props.theme.colors.grayLight};
+`;
+
+const CommentImg = styled.img`
+  width: 15px;
+  margin-bottom: 2px;
+  margin-right: 3px;
 `;

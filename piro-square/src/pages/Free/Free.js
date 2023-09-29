@@ -83,6 +83,7 @@ const Free = () => {
                 is_user_like={Free.is_user_like}
                 like_amount={Free.like_amount}
                 thumbnail={Free.thumbnail}
+                comment_count={Free.comments_count}
               />
             );
           })}
