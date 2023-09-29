@@ -18,6 +18,9 @@ const Nav = () => {
     );
     if (location.pathname === '/') {
       setActiveMenu('');
+    }
+    if (location.pathname === '/my-page/update') {
+      setActiveMenu('');
     } else if (matchingMenu) {
       setActiveMenu(matchingMenu.link);
     }

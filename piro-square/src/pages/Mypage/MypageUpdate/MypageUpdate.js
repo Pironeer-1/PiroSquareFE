@@ -12,6 +12,11 @@ const MypageUpdate = () => {
       });
   }, []);
 
+  // const [email, setEmail] = useState('');
+  // const [nickname, setNickname] = useState('');
+  // const [introduction, setIntroduction] = useState('');
+  // const [imgUrl, setImgUrl] = useState('');
+
   return (
     <Container>
       <MypageNav />
@@ -25,31 +30,40 @@ const MypageUpdate = () => {
           <InfoContent>{information.year}</InfoContent>
         </InformationBox>
       </MainInformation>
-      <SubInformation>
-        <ImgSection>
-          <ProfileImgSection>
-            <ProfileImg src={information.image} />
-          </ProfileImgSection>{' '}
-          <ImgBtn>이미지 변경</ImgBtn>
-          <ImgLabel>이미지 비율 11:14 권장</ImgLabel>
-        </ImgSection>
+      <DownInformation>
+        <Email>
+          <EmailBox>
+            <EmailTitle>이메일</EmailTitle>
+            <EmailContent placeholder={information.email} />
+          </EmailBox>
+          <EmailLabel>이메일 주소 '@' 포함</EmailLabel>
+        </Email>
+        <SubInformation>
+          <ImgSection>
+            <ProfileImgSection>
+              <ProfileImg src={information.image} />
+            </ProfileImgSection>
+            <ImgBtn>이미지 변경</ImgBtn>
+            <ImgLabel>이미지 비율 11:14 권장</ImgLabel>
+          </ImgSection>
 
-        <SubInfoSection>
-          <NickName>
-            <NickNameBox>
-              <NickNameTitle>닉네임</NickNameTitle>
-              <NickNameContent placeholder={information.nickname} />
-            </NickNameBox>
-            <NickNameLabel>10자 이하</NickNameLabel>
-          </NickName>
-          <Introduce>
-            <IntroduceTitle>소개</IntroduceTitle>
-            <IntroduceContent placeholder={information.introduce} />
-            <IntroduceLabel>40자 이하</IntroduceLabel>
-          </Introduce>
-        </SubInfoSection>
-      </SubInformation>
-      <UpdateBtn>수정하기</UpdateBtn>
+          <SubInfoSection>
+            <NickName>
+              <NickNameBox>
+                <NickNameTitle>닉네임</NickNameTitle>
+                <NickNameContent placeholder={information.nickname} />
+              </NickNameBox>
+              <NickNameLabel>10자 이하</NickNameLabel>
+            </NickName>
+            <Introduce>
+              <IntroduceTitle>소개</IntroduceTitle>
+              <IntroduceContent placeholder={information.introduce} />
+              <IntroduceLabel>40자 이하</IntroduceLabel>
+            </Introduce>
+          </SubInfoSection>
+        </SubInformation>
+        <UpdateBtn>수정하기</UpdateBtn>
+      </DownInformation>
     </Container>
   );
 };
@@ -66,6 +80,8 @@ const MainInformation = styled.div`
   justify-content: center;
   margin: 1rem auto;
   width: 55rem;
+  border-bottom: 2px solid #0bec12;
+  padding-bottom: 1rem;
 `;
 
 const InformationBox = styled.div`
@@ -95,10 +111,15 @@ const InfoContent = styled.div`
   background-color: ${props => props.theme.colors.grayDark};
 `;
 
+const DownInformation = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+`;
+
 const SubInformation = styled.div`
   display: flex;
   justify-content: center;
-  border-top: 2px solid #0bec12;
   width: 55rem;
 `;
 
@@ -212,6 +233,9 @@ const ImgBtn = styled.button`
   margin-left: 5rem;
   font-size: 16px;
   background-color: ${props => props.theme.colors.black};
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const UpdateBtn = styled.button`
@@ -232,4 +256,46 @@ const UpdateBtn = styled.button`
     background-color: ${props => props.theme.colors.green};
     color: black;
   }
+`;
+
+const Email = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 39rem;
+  margin: 0 auto;
+`;
+
+const EmailBox = styled.div`
+  display: flex;
+  justify-content: center;
+  margin-left: auto;
+  width: 36rem;
+`;
+
+const EmailTitle = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 8rem;
+  height: 3rem;
+  background-color: ${props => props.theme.colors.black};
+`;
+
+const EmailContent = styled.input`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  color: black;
+  font-size: 16px;
+  width: 29rem;
+  height: 3rem;
+  padding-left: 1rem;
+  background-color: ${props => props.theme.colors.grayLight};
+`;
+
+const EmailLabel = styled.label`
+  color: ${props => props.theme.colors.grayLight};
+  margin-top: 2px;
+  margin-left: auto;
 `;

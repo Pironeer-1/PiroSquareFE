@@ -6,7 +6,7 @@ const MENU_LIST = [
   { id: 1, title: '회원명함', link: '/my-page/card' },
   { id: 2, title: '회원정보 수정', link: '/my-page/update' },
   { id: 3, title: '내가 쓴 글', link: '/my-page/my-post' },
-  { id: 4, title: '나의 댓글', link: '/my-page/my-comment' },
+  { id: 4, title: '댓글 쓴 글', link: '/my-page/my-comment' },
   { id: 5, title: '좋아요 한 글', link: '/my-page/my-like' },
 ];
 const MypageNav = () => {
