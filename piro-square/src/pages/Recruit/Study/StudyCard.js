@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const StudyCard = ({
   id,
@@ -14,8 +15,14 @@ const StudyCard = ({
     ? '/images/Main/book_g.png'
     : '/images/Main/book.png';
 
+  const navigate = useNavigate();
+
+  const onClickDetailButton = () => {
+    navigate(`/study-detail/${id}`);
+  };
+
   return (
-    <CardBox>
+    <CardBox onClick={onClickDetailButton}>
       <StudyIcon>
         <StudyImg src={availibilityImg} />
       </StudyIcon>

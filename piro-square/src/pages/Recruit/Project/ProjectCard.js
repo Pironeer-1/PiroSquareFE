@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const ProjectCard = ({
   id,
@@ -14,8 +15,14 @@ const ProjectCard = ({
     ? '/images/Main/Laptop_g.png'
     : '/images/Main/Laptop.png';
 
+  const navigate = useNavigate();
+
+  const onClickDetailButton = () => {
+    navigate(`/project-detail/${id}`);
+  };
+
   return (
-    <CardBox>
+    <CardBox onClick={onClickDetailButton}>
       <ProjectIcon>
         <ProjectImg src={availibilityImg} />
       </ProjectIcon>

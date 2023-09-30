@@ -4,12 +4,18 @@ import 'react-quill/dist/quill.snow.css';
 import WriteTopSection from '../WriteTopSection/WriteTopSection';
 import Register from '../Register';
 import Quil from '../Quil';
+import PersonnelInput from './PersonnelInput';
+import DueDate from './DueDate';
 
 const WriteProject = () => {
   return (
     <Container>
       <Title>프로젝트 모집</Title>
       <WriteTopSection />
+      <SubInfoSection>
+        <PersonnelInput />
+        <DueDate />
+      </SubInfoSection>
       <QuilContainer>
         <Quil />
       </QuilContainer>
@@ -36,4 +42,11 @@ const Title = styled.h1`
 
 const QuilContainer = styled.div`
   margin-top: 2rem;
+`;
+
+const SubInfoSection = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+  width: 55rem;
 `;

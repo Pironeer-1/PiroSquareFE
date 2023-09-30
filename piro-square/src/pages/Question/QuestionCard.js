@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import LikeBtn from '../../components/Button/LikeBtn/LikeBtn';
+import { useNavigate } from 'react-router-dom';
 
 const QuestionCard = ({
   id,
@@ -12,16 +13,20 @@ const QuestionCard = ({
   is_user_like,
   like_amount,
 }) => {
+  const navigate = useNavigate();
+  const onClickDetailButton = () => {
+    navigate(`/question-detail/${id}`);
+  };
   const availibilityImg = is_solved
     ? '/images/Question/solved.png'
     : '/images/Question/unsolved.png';
 
   return (
     <QuestionBox>
-      <QuestionIcon>
+      <QuestionIcon onClick={onClickDetailButton}>
         <QuestionImg src={availibilityImg} />
       </QuestionIcon>
-      <Container>
+      <Container onClick={onClickDetailButton}>
         <CardTitle>{title}</CardTitle>
         <CardBottom>
           <CardAuthor>{username}</CardAuthor>

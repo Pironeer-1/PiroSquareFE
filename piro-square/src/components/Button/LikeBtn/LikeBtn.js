@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 const LikeBtn = ({ initialLike, likeAmount }) => {
   const [isLike, setIsLike] = useState(initialLike);
-  const [currentLikeAmount, setCurrentLikeAmount] = useState(likeAmount);
+  const [currentLikeAmount, setCurrentLikeAmount] = useState(likeAmount || 0);
 
   const handleLikeToggle = newLikeStatus => {
     if (newLikeStatus) {
