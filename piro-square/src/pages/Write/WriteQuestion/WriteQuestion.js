@@ -3,7 +3,11 @@ import styled from 'styled-components';
 import 'react-quill/dist/quill.snow.css';
 import WriteTopSection from '../WriteTopSection/WriteTopSection';
 import Register from '../Register';
-import Quil from '../Quil';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import { Editor } from '@toast-ui/react-editor';
+import '@toast-ui/editor/dist/toastui-editor.css';
+import '@toast-ui/editor/dist/i18n/ko-kr';
+import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 
 const WriteQuestion = () => {
   return (
@@ -11,7 +15,13 @@ const WriteQuestion = () => {
       <Title>질문하기</Title>
       <WriteTopSection />
       <QuilContainer>
-        <Quil />
+        <Editor
+          height="600px"
+          placeholder="질문을 작성해주세요"
+          previewStyle="vertical"
+          language="ko-KR"
+          theme="dark"
+        />
       </QuilContainer>
       <Register />
     </Container>

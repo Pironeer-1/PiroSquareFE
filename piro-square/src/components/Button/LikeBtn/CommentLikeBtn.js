@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const LikeBtn = ({ initialLike, likeAmount }) => {
+const CommentLikeBtn = ({ initialLike, likeAmount }) => {
   const [isLike, setIsLike] = useState(initialLike);
-  const [currentLikeAmount, setCurrentLikeAmount] = useState(likeAmount || 0);
+  const [currentLikeAmount, setCurrentLikeAmount] = useState(likeAmount);
 
   const handleLikeToggle = newLikeStatus => {
     if (newLikeStatus) {
@@ -33,19 +33,23 @@ const LikeBtn = ({ initialLike, likeAmount }) => {
   );
 };
 
-export default LikeBtn;
+export default CommentLikeBtn;
 
 const Container = styled.div`
+  display: flex;
   cursor: pointer;
+  margin-left: 0.5rem;
 `;
 
 const LikeImg = styled.img`
-  margin-right: 10px;
-  width: 25px;
+  margin-right: 2px;
+  width: 15px;
+  height: 10px;
 `;
 
 const LikeAmount = styled.span`
   font-family: 'InteropBold';
+  font-size: 12px;
   &.greenWord {
     color: ${props => props.theme.colors.green};
   }

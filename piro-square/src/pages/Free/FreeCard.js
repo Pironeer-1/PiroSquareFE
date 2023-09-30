@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import LikeBtn from '../../components/Button/LikeBtn/LikeBtn';
+import { useNavigate } from 'react-router-dom';
 
 const FreeCard = ({
   id,
@@ -12,16 +13,19 @@ const FreeCard = ({
   thumbnail,
   comment_count,
 }) => {
+  const navigate = useNavigate();
+  const onClickDetailButton = () => {
+    navigate(`/free-detail/${id}`);
+  };
   return (
     <FreeBox>
-      <FreeIcon>
+      <FreeIcon onClick={onClickDetailButton}>
         <FreeImg src={thumbnail} />
       </FreeIcon>
-      <Container>
+      <Container onClick={onClickDetailButton}>
         <CardTitle>{title}</CardTitle>
         <CardBottom>
           <CardAuthor>{username}</CardAuthor>
-
           <CardDate>{created_at}</CardDate>
           <CardComment>
             <CommentImg src="/images/Mypage/chat_g.png" />

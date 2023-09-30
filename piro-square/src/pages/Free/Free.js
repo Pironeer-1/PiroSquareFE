@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import FilterBtn from '../../components/Button/FilterBtn/FilterBtn';
 import FreeCard from './FreeCard';
-import { useNavigate } from 'react-router-dom';
+import Pagination from '../../components/Pagination/Pagination';
 
 const Free = () => {
   const [isRightPosition, setIsRightPosition] = useState(false);
@@ -37,18 +38,6 @@ const Free = () => {
   };
 
   const totalPageCount = Math.ceil(frees.length / itemsPerPage);
-  const pageNumbers = [];
-  for (let i = 1; i <= totalPageCount; i++) {
-    pageNumbers.push(
-      <PageNumber
-        key={i}
-        onClick={() => handlePageChange(i)}
-        className={i === currentPage ? 'active' : ''}
-      >
-        {i}
-      </PageNumber>,
-    );
-  }
 
   const availabilityClassName = isRightPosition ? 'greenWord' : 'grayWord';
 
@@ -89,7 +78,11 @@ const Free = () => {
           })}
         </BottomSection>
       </Container>
-      <PaginationContainer>{pageNumbers}</PaginationContainer>
+      <Pagination
+        currentPage={currentPage}
+        totalPageCount={totalPageCount}
+        onPageChange={handlePageChange}
+      />
     </>
   );
 };
@@ -165,26 +158,4 @@ const BottomSection = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: 1rem;
-`;
-
-const PaginationContainer = styled.div`
-  margin-top: 2rem;
-  display: flex;
-  justify-content: center;
-`;
-
-const PageNumber = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 20px;
-  margin-left: 1rem;
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  cursor: pointer;
-  &.active {
-    background-color: ${props => props.theme.colors.green};
-    color: black;
-  }
 `;
