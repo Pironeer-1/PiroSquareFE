@@ -6,7 +6,7 @@ const NAV_LIST = [
   { id: 1, title: '자유게시판', link: '/free' },
   { id: 2, title: '질문', link: '/question' },
   { id: 3, title: '모집/채용', link: '/recruit-study' },
-  { id: 4, title: '공지', link: '/anounce' },
+  { id: 4, title: '공지', link: '/announce' },
 ];
 const Nav = () => {
   const location = useLocation();

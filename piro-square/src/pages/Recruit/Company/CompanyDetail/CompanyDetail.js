@@ -1,20 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
-import Paginator from '../../../components/Paginator/Paginator';
-import Comment from '../../../components/Comment/Comment';
-import LikeBtn from '../../../components/Button/LikeBtn/LikeBtn';
+import Paginator from '../../../../components/Paginator/Paginator';
+import Comment from '../../../../components/Comment/Comment';
+import LikeBtn from '../../../../components/Button/LikeBtn/LikeBtn';
+import SubInfo from './SubInfo';
 
-const FreeDetail = () => {
+const CompanyDetail = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
   const [detail, setDetail] = useState([]);
-  const navigate = useNavigate();
-  const onClickListButton = () => {
-    navigate(`/free`);
-  };
 
   useEffect(() => {
-    fetch('/data/freeDetail.json')
+    fetch('/data/projectRecruit.json')
       .then(response => response.json())
       .then(result => {
         setDetail(result);
@@ -22,6 +19,7 @@ const FreeDetail = () => {
   }, []);
 
   const [comments, setComments] = useState([]);
+
   useEffect(() => {
     fetch('/data/comments.json')
       .then(response => response.json())
@@ -29,7 +27,10 @@ const FreeDetail = () => {
         setComments(result);
       });
   }, []);
-
+  const navigate = useNavigate();
+  const onClickListButton = () => {
+    navigate(`/recruit-company`);
+  };
   useEffect(() => {
     if (detail.like_amount !== undefined && detail.is_user_like !== undefined) {
       setDataLoaded(true);
@@ -54,12 +55,15 @@ const FreeDetail = () => {
             likeAmount={detail.like_amount}
           />
         </TopSection>
+        <SubInfo
+          activate={detail.activate}
+          start_date={detail.start_date}
+          recruit_date={detail.recruit_date}
+          personnel={detail.personnel}
+        />
         <ContentBox>
           <ContentInfo>
-            <UserSection>
-              <UserImg src={detail.profile} />
-              <UserName>{detail.username}</UserName>
-            </UserSection>
+            <UserName>{detail.username}</UserName>
             <Created>{detail.created_at}</Created>
           </ContentInfo>
           <ContentSection>{detail.content}</ContentSection>
@@ -71,7 +75,7 @@ const FreeDetail = () => {
   );
 };
 
-export default FreeDetail;
+export default CompanyDetail;
 
 const Container = styled.div`
   display: flex;
@@ -79,7 +83,6 @@ const Container = styled.div`
   width: 50rem;
   margin: 0 auto;
 `;
-
 const TopSection = styled.div`
   margin-top: 2rem;
   display: flex;
@@ -93,23 +96,10 @@ const Title = styled.h1`
   font-size: 32px;
   font-family: 'InteropExtraLight';
 `;
-
 const ContentInfo = styled.div`
   display: flex;
   justify-content: space-between;
   margin: 2rem;
-`;
-
-const UserSection = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const UserImg = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  margin-right: 10px;
 `;
 
 const UserName = styled.h2`

@@ -1,21 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
-const CompanyCard = ({
-  id,
-  title,
-  username,
-  created_at,
-  activate,
-  personnel,
-}) => {
+const CompanyCard = ({ id, title, username, created_at, activate }) => {
   const availabilityClassName = activate ? 'greenWord' : 'grayWord';
   const availibilityImg = activate
     ? '/images/Main/Vector_g.png'
     : '/images/Main/Vector.png';
 
+  const navigate = useNavigate();
+
+  const onClickDetailButton = () => {
+    navigate(`/company-detail/${id}`);
+  };
+
   return (
-    <CardBox>
+    <CardBox onClick={onClickDetailButton}>
       <CompanyIcon>
         <CompanyImg src={availibilityImg} />
       </CompanyIcon>
@@ -23,10 +23,6 @@ const CompanyCard = ({
         <CardTitle>{title}</CardTitle>
         <CardBottom>
           <CardAuthor>{username}</CardAuthor>
-          <CardPersonnel>
-            <PersonnelSpan>모집 인원</PersonnelSpan>
-            {personnel}
-          </CardPersonnel>
           <CardDate>{created_at}</CardDate>
         </CardBottom>
       </Container>
@@ -47,6 +43,9 @@ const CardBox = styled.div`
   border-radius: 10px;
   width: 55rem;
   height: 5rem;
+  &:hover {
+    cursor: pointer;
+  }
 `;
 
 const CompanyIcon = styled.div`
@@ -64,10 +63,6 @@ const Container = styled.div`
   flex-direction: column;
   align-items: start;
   justify-content: center;
-  &:hover {
-    cursor: pointer;
-    background-color: ${props => props.theme.colors.black};
-  }
 `;
 
 const CardTitle = styled.div`
@@ -85,14 +80,6 @@ const CardBottom = styled.div`
 
 const CardAuthor = styled.div`
   color: ${props => props.theme.colors.grayLight};
-`;
-
-const CardPersonnel = styled.div`
-  margin-left: 10px;
-`;
-
-const PersonnelSpan = styled.span`
-  margin-right: 5px;
 `;
 
 const CardDate = styled.div`

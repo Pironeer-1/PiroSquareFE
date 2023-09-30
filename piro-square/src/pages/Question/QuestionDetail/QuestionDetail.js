@@ -28,7 +28,6 @@ const QuestionDetail = () => {
       .then(response => response.json())
       .then(result => {
         setAnswerDetail(result);
-        console.log(result);
       });
   }, []);
 

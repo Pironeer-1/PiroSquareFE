@@ -2,44 +2,22 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import Paginator from '../../../components/Paginator/Paginator';
-import Comment from '../../../components/Comment/Comment';
-import LikeBtn from '../../../components/Button/LikeBtn/LikeBtn';
 
-const FreeDetail = () => {
-  const [dataLoaded, setDataLoaded] = useState(false);
+const AnnounceDetail = () => {
   const [detail, setDetail] = useState([]);
   const navigate = useNavigate();
-  const onClickListButton = () => {
-    navigate(`/free`);
-  };
 
   useEffect(() => {
-    fetch('/data/freeDetail.json')
+    fetch('/data/AnnounceDetail.json')
       .then(response => response.json())
       .then(result => {
         setDetail(result);
       });
   }, []);
 
-  const [comments, setComments] = useState([]);
-  useEffect(() => {
-    fetch('/data/comments.json')
-      .then(response => response.json())
-      .then(result => {
-        setComments(result);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (detail.like_amount !== undefined && detail.is_user_like !== undefined) {
-      setDataLoaded(true);
-    }
-  }, [detail.like_amount, detail.is_user_like]);
-
-  if (!dataLoaded) {
-    return <div>Loading...</div>;
-  }
-
+  const onClickListButton = () => {
+    navigate(`/announce`);
+  };
   return (
     <>
       <Container>
@@ -49,29 +27,23 @@ const FreeDetail = () => {
         </ListBtn>
         <TopSection>
           <Title>{detail.title}</Title>
-          <LikeBtn
-            initialLike={detail.is_user_like}
-            likeAmount={detail.like_amount}
-          />
         </TopSection>
         <ContentBox>
           <ContentInfo>
             <UserSection>
-              <UserImg src={detail.profile} />
               <UserName>{detail.username}</UserName>
             </UserSection>
             <Created>{detail.created_at}</Created>
           </ContentInfo>
           <ContentSection>{detail.content}</ContentSection>
         </ContentBox>
-        <Comment comments={comments} />
       </Container>
       <Paginator />
     </>
   );
 };
 
-export default FreeDetail;
+export default AnnounceDetail;
 
 const Container = styled.div`
   display: flex;
@@ -86,6 +58,7 @@ const TopSection = styled.div`
   justify-content: space-between;
   align-items: center;
 `;
+
 const Title = styled.h1`
   display: flex;
   align-items: center;
@@ -103,13 +76,6 @@ const ContentInfo = styled.div`
 const UserSection = styled.div`
   display: flex;
   align-items: center;
-`;
-
-const UserImg = styled.img`
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  margin-right: 10px;
 `;
 
 const UserName = styled.h2`

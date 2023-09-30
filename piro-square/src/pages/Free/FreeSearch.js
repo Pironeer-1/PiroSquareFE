@@ -1,23 +1,27 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import FilterBtn from '../../components/Button/FilterBtn/FilterBtn';
 import FreeCard from './FreeCard';
 import Pagination from '../../components/Pagination/Pagination';
 
-const Free = () => {
+const FreeSearch = () => {
+  const [loading, setLoading] = useState(true);
+  const location = useLocation();
+  const value = location.state.value;
   const [isRightPosition, setIsRightPosition] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
+
   const handleFilterBtnClick = () => {
     setIsRightPosition(!isRightPosition);
   };
 
-  const navigate = useNavigate();
-
   const handleFreeBtnClick = () => {
     navigate('/free');
   };
+
+  const navigate = useNavigate();
 
   const handleWriteBtnClick = () => {
     navigate('/write');
@@ -31,66 +35,64 @@ const Free = () => {
         setFrees(result);
       });
   }, []);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = frees.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = pageNumber => {
-    setCurrentPage(pageNumber);
-  };
+  // useEffect(() => {
+  //   fetch(`http://10.58.52.80:8000/free/search?keyword=${value}`, {
+  //     method: 'GET',
+  //   })
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setFrees(result);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
-  const totalPageCount = Math.ceil(frees.length / itemsPerPage);
+  const filteredFrees = frees.filter(Free => {
+    return Free.title.includes(searchKeyword);
+  });
 
   const availabilityClassName = isRightPosition ? 'greenWord' : 'grayWord';
 
+  // if (loading) return;
   return (
-    <>
-      <Container>
-        <Title onClick={handleFreeBtnClick}>자유게시판</Title>
-        <TopSection>
-          <SearchBar onSearch={setSearchKeyword} />
-          <FilterBox>
-            <FilterBtn
-              onClick={handleFilterBtnClick}
-              isRightPosition={isRightPosition}
-            />
-            <FilterName className={availabilityClassName}>
-              {isRightPosition ? '인기순' : '최신순'}
-            </FilterName>
-          </FilterBox>
+    <Container>
+      <Title onClick={handleFreeBtnClick}>자유게시판</Title>
+      <TopSection>
+        <SearchBar onSearch={setSearchKeyword} />
+        <FilterBox>
+          <FilterBtn
+            onClick={handleFilterBtnClick}
+            isRightPosition={isRightPosition}
+          />
+          <FilterName className={availabilityClassName}>
+            {isRightPosition ? '인기순' : '최신순'}
+          </FilterName>
+        </FilterBox>
 
-          <WriteBtn onClick={handleWriteBtnClick}>글쓰기</WriteBtn>
-        </TopSection>
-        <BottomSection>
-          {currentItems.map(Free => {
-            return (
-              <FreeCard
-                key={Free.id}
-                id={Free.id}
-                title={Free.title}
-                username={Free.username}
-                created_at={Free.created_at}
-                answers_amount={Free.answers_amount}
-                is_user_like={Free.is_user_like}
-                like_amount={Free.like_amount}
-                thumbnail={Free.thumbnail}
-                comment_count={Free.comments_count}
-              />
-            );
-          })}
-        </BottomSection>
-      </Container>
-      <Pagination
-        currentPage={currentPage}
-        totalPageCount={totalPageCount}
-        onPageChange={handlePageChange}
-      />
-    </>
+        <WriteBtn onClick={handleWriteBtnClick}>글쓰기</WriteBtn>
+      </TopSection>
+      <BottomSection>
+        {filteredFrees.map(Free => {
+          return (
+            <FreeCard
+              key={Free.id}
+              id={Free.id}
+              title={Free.title}
+              username={Free.username}
+              created_at={Free.created_at}
+              answers_amount={Free.answers_amount}
+              is_user_like={Free.is_user_like}
+              like_amount={Free.like_amount}
+              thumbnail={Free.thumbnail}
+              comment_count={Free.comments_count}
+            />
+          );
+        })}
+      </BottomSection>
+    </Container>
   );
 };
-export default Free;
+export default FreeSearch;
 
 const Container = styled.div`
   display: flex;
@@ -105,6 +107,7 @@ const Title = styled.h1`
   margin-top: 30px;
   font-family: 'InteropLight';
   font-size: 34px;
+  cursor: pointer;
 `;
 
 const TopSection = styled.div`

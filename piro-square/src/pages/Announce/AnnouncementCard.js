@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useNavigate } from 'react-router-dom';
 
 const AnnouncementCard = ({ id, title, username, created_at, sort }) => {
+  const navigate = useNavigate();
+
+  const onClickDetailButton = () => {
+    navigate(`/announce-detail/${id}`);
+  };
+
   return (
-    <Container>
+    <Container onClick={onClickDetailButton}>
       <CardTitle>
         <CardSort>[{sort}]</CardSort>
         {title}

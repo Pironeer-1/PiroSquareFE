@@ -14,17 +14,29 @@ const Announce = () => {
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = announcements.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPageCount = Math.ceil(announcements.length / itemsPerPage);
+
+  const maxPageNumbersToShow = 5;
+  const halfMaxPageNumbersToShow = Math.floor(maxPageNumbersToShow / 2);
+
+  const startPage =
+    currentPage <= halfMaxPageNumbersToShow
+      ? 1
+      : currentPage + halfMaxPageNumbersToShow > totalPageCount
+      ? totalPageCount - maxPageNumbersToShow + 1
+      : currentPage - halfMaxPageNumbersToShow;
+
+  const endPage =
+    startPage + maxPageNumbersToShow > totalPageCount
+      ? totalPageCount
+      : startPage + maxPageNumbersToShow - 1;
 
   const handlePageChange = pageNumber => {
     setCurrentPage(pageNumber);
   };
 
-  const totalPageCount = Math.ceil(announcements.length / itemsPerPage);
   const pageNumbers = [];
-  for (let i = 1; i <= totalPageCount; i++) {
+  for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(
       <PageNumber
         key={i}
@@ -40,20 +52,34 @@ const Announce = () => {
     <Container>
       <Title>공지</Title>
       <AnnouncementBox>
-        {currentItems.map(announcement => {
-          return (
-            <AnnouncementCard
-              key={announcement.id}
-              id={announcement.id}
-              title={announcement.title}
-              username={announcement.username}
-              created_at={announcement.created_at}
-              sort={announcement.sort}
-            />
-          );
-        })}
+        {announcements
+          .slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
+          .map(announcement => {
+            return (
+              <AnnouncementCard
+                key={announcement.id}
+                id={announcement.id}
+                title={announcement.title}
+                username={announcement.username}
+                created_at={announcement.created_at}
+                sort={announcement.sort}
+              />
+            );
+          })}
       </AnnouncementBox>
-      <PaginationContainer>{pageNumbers}</PaginationContainer>
+      <PaginationContainer>
+        {currentPage > 1 && (
+          <PageNumber onClick={() => handlePageChange(currentPage - 1)}>
+            &lt;
+          </PageNumber>
+        )}
+        {pageNumbers}
+        {currentPage < totalPageCount && (
+          <PageNumber onClick={() => handlePageChange(currentPage + 1)}>
+            &gt;
+          </PageNumber>
+        )}
+      </PaginationContainer>
     </Container>
   );
 };

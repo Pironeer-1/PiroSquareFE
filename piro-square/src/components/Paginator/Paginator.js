@@ -11,6 +11,14 @@ const Paginator = () => {
       navigate('/free');
     } else if (location.pathname.startsWith('/question-detail')) {
       navigate('/question');
+    } else if (location.pathname.startsWith('/announce-detail')) {
+      navigate('/announce');
+    } else if (location.pathname.startsWith('/study-detail')) {
+      navigate('/recruit-study');
+    } else if (location.pathname.startsWith('/project-detail')) {
+      navigate('/recruit-project');
+    } else if (location.pathname.startsWith('/company-detail')) {
+      navigate('/recruit-company');
     }
   };
 
@@ -82,7 +90,10 @@ const Previous = styled.div`
   margin-left: 10px;
 `;
 
-const Prev = styled.div``;
+const Prev = styled.div`
+  margin-bottom: 5px;
+`;
+
 const PrevTitle = styled.div``;
 
 const Next = styled.div`
@@ -91,5 +102,6 @@ const Next = styled.div`
 
 const Nex = styled.div`
   text-align: right;
+  margin-bottom: 5px;
 `;
 const NexTitle = styled.div``;

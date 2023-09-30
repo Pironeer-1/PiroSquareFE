@@ -58,7 +58,7 @@ const WriteTopSection = () => {
             type="text"
             value={title}
             onChange={handleTitleChange}
-            placeholder="제목을 입력해주세요 (최대 40자)"
+            placeholder="제목을 입력해주세요 (최대 30자)"
           />
         </TitleSection>
         <FilterSection>
@@ -93,9 +93,10 @@ const TopSection = styled.div`
 
 const TitleSection = styled.div`
   display: flex;
-  width: 36rem;
+  width: 38rem;
+  font-size: 20px;
   height: 3rem;
-  background-color: ${props => props.theme.colors.grayDark};
+  background-color: ${props => props.theme.colors.black};
   border-radius: 30px;
   margin-right: auto;
 `;
@@ -106,6 +107,7 @@ const TitleInput = styled.input`
   margin: auto;
   width: 34rem;
   height: 2.4rem;
+  font-size: 20px;
   font-size: 18px;
   color: white;
   background-color: transparent;
@@ -121,11 +123,11 @@ const SelectBoard = styled.select`
   margin: auto;
   width: 14rem;
   height: 3rem;
-  font-size: 16px;
-  color: black;
-  background-color: ${props => props.theme.colors.grayLight};
+  font-size: 17px;
+  color: white;
+  background-color: ${props => props.theme.colors.black};
   border: none;
-  border-radius: 30px;
+  border-radius: 20px;
   outline: none;
   padding: 0 1rem;
 `;

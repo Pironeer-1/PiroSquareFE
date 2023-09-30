@@ -3,25 +3,26 @@ import styled from 'styled-components';
 import SearchBar from '../../components/SearchBar/SearchBar';
 import FilterBtn from '../../components/Button/FilterBtn/FilterBtn';
 import QuestionCard from './QuestionCard';
-import { useNavigate } from 'react-router-dom';
-import Pagination from '../../components/Pagination/Pagination';
+import { useNavigate, useLocation } from 'react-router-dom';
 
-const Question = () => {
+const QuestionSearch = () => {
+  const [loading, setLoading] = useState(true);
   const [isRightPosition, setIsRightPosition] = useState(false);
   const [searchKeyword, setSearchKeyword] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
+  const value = location.state.value;
+
   const handleWriteBtnClick = () => {
     navigate('/write/question');
   };
-
-  const handleQuestionBtnClick = () => {
+  const handlequestionBtnClick = () => {
     navigate('/question');
   };
 
   const handleFilterBtnClick = () => {
     setIsRightPosition(!isRightPosition);
   };
-
   const [questions, setQuestions] = useState([]);
   useEffect(() => {
     fetch('/data/questionData.json')
@@ -30,63 +31,60 @@ const Question = () => {
         setQuestions(result);
       });
   }, []);
-  const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 4;
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = questions.slice(indexOfFirstItem, indexOfLastItem);
 
-  const handlePageChange = pageNumber => {
-    setCurrentPage(pageNumber);
-  };
+  // useEffect(() => {
+  //   fetch(`http://10.58.52.80:8000/question/search?keyword=${value}`, {
+  //     method: 'GET',
+  //   })
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setFrees(result);
+  //       setLoading(false);
+  //     });
+  // }, []);
 
-  const totalPageCount = Math.ceil(questions.length / itemsPerPage);
+  const filteredQuestions = questions.filter(Question => {
+    return Question.title.includes(searchKeyword);
+  });
 
   const availabilityClassName = isRightPosition ? 'greenWord' : 'grayWord';
   return (
-    <>
-      <Container>
-        <Title onClick={handleQuestionBtnClick}>질문</Title>
-        <TopSection>
-          <SearchBar onSearch={setSearchKeyword} />
-          <FilterBox>
-            <FilterBtn
-              onClick={handleFilterBtnClick}
-              isRightPosition={isRightPosition}
+    <Container>
+      <Title onClick={handlequestionBtnClick}>질문</Title>
+      <TopSection>
+        <SearchBar onSearch={setSearchKeyword} />
+        <FilterBox>
+          <FilterBtn
+            onClick={handleFilterBtnClick}
+            isRightPosition={isRightPosition}
+          />
+          <FilterName className={availabilityClassName}>
+            {isRightPosition ? '해결' : '전체'}
+          </FilterName>
+        </FilterBox>
+        <AskBtn onClick={handleWriteBtnClick}>질문하기</AskBtn>
+      </TopSection>
+      <BottomSection>
+        {filteredQuestions.map(question => {
+          return (
+            <QuestionCard
+              key={question.id}
+              id={question.id}
+              title={question.title}
+              username={question.username}
+              created_at={question.created_at}
+              answers_amount={question.answers_amount}
+              is_user_like={question.is_user_like}
+              is_solved={question.is_solved}
+              like_amount={question.like_amount}
             />
-            <FilterName className={availabilityClassName}>
-              {isRightPosition ? '해결' : '전체'}
-            </FilterName>
-          </FilterBox>
-          <AskBtn onClick={handleWriteBtnClick}>질문하기</AskBtn>
-        </TopSection>
-        <BottomSection>
-          {currentItems.map(question => {
-            return (
-              <QuestionCard
-                key={question.id}
-                id={question.id}
-                title={question.title}
-                username={question.username}
-                created_at={question.created_at}
-                answers_amount={question.answers_amount}
-                is_user_like={question.is_user_like}
-                is_solved={question.is_solved}
-                like_amount={question.like_amount}
-              />
-            );
-          })}
-        </BottomSection>
-      </Container>
-      <Pagination
-        currentPage={currentPage}
-        totalPageCount={totalPageCount}
-        onPageChange={handlePageChange}
-      />
-    </>
+          );
+        })}
+      </BottomSection>
+    </Container>
   );
 };
-export default Question;
+export default QuestionSearch;
 
 const Container = styled.div`
   display: flex;
@@ -101,6 +99,7 @@ const Title = styled.h1`
   margin-top: 30px;
   font-family: 'InteropLight';
   font-size: 34px;
+  cursor: pointer;
 `;
 
 const TopSection = styled.div`

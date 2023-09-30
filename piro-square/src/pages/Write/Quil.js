@@ -81,12 +81,12 @@ const QuilContainer = styled.div`
 
   & .ql-editor {
     font-size: 18px;
-    background-color: ${props => props.theme.colors.grayDark};
+    background-color: ${props => props.theme.colors.black};
     border: none;
     color: white;
   }
 
-  & .ql-toolbar.ql-snow {
+  & .ql-toolbar ql-snow {
     border: none;
     background-color: ${props => props.theme.colors.black};
   }
