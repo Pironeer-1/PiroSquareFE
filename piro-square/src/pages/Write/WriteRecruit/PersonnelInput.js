@@ -1,26 +1,24 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const PersonnelInput = () => {
-  const [count, setCount] = useState(1);
-
+const PersonnelInput = ({ personnel, setPersonnel }) => {
   const onIncrease = () => {
-    setCount(count + 1);
+    setPersonnel(personnel + 1);
   };
 
   const onDecrease = () => {
-    if (count > 1) {
-      setCount(count - 1);
+    if (personnel > 1) {
+      setPersonnel(personnel - 1);
     }
   };
 
   return (
     <Container>
       <PersonnelLabel>모집 인원수</PersonnelLabel>
-      <DecreaseBtn onClick={onDecrease} disabled={count === 1}>
+      <DecreaseBtn onClick={onDecrease} disabled={personnel === 1}>
         -
       </DecreaseBtn>
-      <Personnel>{count}</Personnel>
+      <Personnel>{personnel}</Personnel>
       <IncreaseBtn onClick={onIncrease}> + </IncreaseBtn>
     </Container>
   );

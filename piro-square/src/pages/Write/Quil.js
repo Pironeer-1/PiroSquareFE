@@ -3,10 +3,8 @@ import styled from 'styled-components';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 
-const Quil = () => {
-  const [value, setValue] = useState('');
+const Quil = ({ content, setContent }) => {
   const quillRef = useRef(null);
-
   const modules = {
     toolbar: [
       [{ font: [] }],
@@ -42,6 +40,11 @@ const Quil = () => {
     'link',
     'image',
   ];
+
+  const handleContentChange = newContent => {
+    setContent(newContent);
+  };
+
   return (
     <Container>
       <QuilContainer>
@@ -53,10 +56,10 @@ const Quil = () => {
           }}
           ref={quillRef}
           theme="snow"
-          value={value}
+          value={content}
           modules={modules}
           formats={formats}
-          onChange={setValue}
+          onChange={handleContentChange}
           placeholder="내용을 입력하세요."
         />
       </QuilContainer>

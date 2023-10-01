@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import { useNavigate, useLocation } from 'react-router-dom';
 import 'react-quill/dist/quill.snow.css';
 import WriteTopSection from '../WriteTopSection/WriteTopSection';
 import Register from '../Register';
+import { fetchPOST } from '../../../utils/utils';
 import '@toast-ui/editor/dist/toastui-editor.css';
 import { Editor } from '@toast-ui/react-editor';
 import '@toast-ui/editor/dist/toastui-editor.css';
@@ -10,20 +12,70 @@ import '@toast-ui/editor/dist/i18n/ko-kr';
 import '@toast-ui/editor/dist/theme/toastui-editor-dark.css';
 
 const WriteQuestion = () => {
+  const [title, setTitle] = useState('');
+  const [selectedBoard, setSelectedBoard] = useState('');
+  const [content, setContent] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
+  const editorRef = React.createRef();
+
+  const handleContentChange = newContent => {
+    setContent(newContent);
+  };
+
+  const handleLocation = () => {
+    const currentPathname = location.pathname;
+    let nextUrl = '';
+
+    if (currentPathname === '/write/free') {
+      nextUrl = `/free`;
+    } else if (currentPathname === '/write/question') {
+      nextUrl = `/question`;
+    } else if (currentPathname === '/write/recruit/study') {
+      nextUrl = `/recruit-study`;
+    } else if (currentPathname === '/write/recruit/project') {
+      nextUrl = `/recruit-project`;
+    } else if (currentPathname === '/write/recruit/company') {
+      nextUrl = `/recruit-company`;
+    }
+
+    navigate(nextUrl);
+  };
+
+  const onSubmit = () => {
+    const editorInstance = editorRef.current.getInstance();
+    const markdownContent = editorInstance.getMarkdown();
+
+    const body = {
+      title: title,
+      content: markdownContent,
+      selectedBoard: selectedBoard,
+    };
+    console.log(body);
+    handleLocation();
+  };
   return (
     <Container>
       <Title>질문하기</Title>
-      <WriteTopSection />
+      <WriteTopSection
+        title={title}
+        selectedBoard={selectedBoard}
+        setTitle={setTitle}
+        setSelectedBoard={setSelectedBoard}
+      />
       <QuilContainer>
         <Editor
+          ref={editorRef}
           height="600px"
           placeholder="질문을 작성해주세요"
           previewStyle="vertical"
           language="ko-KR"
           theme="dark"
+          onChange={handleContentChange}
+          value={content}
         />
       </QuilContainer>
-      <Register />
+      <Register onSubmit={onSubmit} />
     </Container>
   );
 };

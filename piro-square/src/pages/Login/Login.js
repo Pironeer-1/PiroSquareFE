@@ -12,7 +12,22 @@ const LOGIN_MENT = [
 ];
 
 const Login = () => {
+  const Naver = () => {
+    window.open('http://localhost:8000/auth/naver', '_self');
+  };
   const [currentMentIndex, setCurrentMentIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentMentIndex(prevIndex =>
+        prevIndex === LOGIN_MENT.length - 1 ? 0 : prevIndex + 1,
+      );
+    }, 4000);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -32,7 +47,7 @@ const Login = () => {
       <LoginImg src="images/Nav/piro_logo.png" />
       <LoginTitle>PIROSQUARE</LoginTitle>
       <LoginBtn>
-        <BtnImg src="images/Login/btnD.png" />
+        <BtnImg src="images/Login/btnD.png" onClick={Naver} />
       </LoginBtn>
       <LoginBottom>
         <LoginInfo>아직 회원이 아니라면?</LoginInfo>

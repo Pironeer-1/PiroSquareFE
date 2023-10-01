@@ -1,14 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Register = () => {
+const Register = ({ onSubmit }) => {
   return (
     <Container>
-      <RegisterBtn>등록하기</RegisterBtn>
+      <RegisterBtn onClick={onSubmit}>등록하기</RegisterBtn>
     </Container>
   );
 };
 export default Register;
+
+// const Register = ({onClick}) => {
+//   return (
+//     <Container onClick={onClick}>
+//       <RegisterBtn>등록하기</RegisterBtn>
+//     </Container>
+//   );
+// };
+// export default Register;
 
 const Container = styled.div`
   margin-top: 4rem;

@@ -10,9 +10,12 @@ const WRITE_MENU = [
   { id: 5, title: '모집/채용 - 채용 공고', link: '/write/recruit/company' },
 ];
 
-const WriteTopSection = () => {
-  const [title, setTitle] = useState('');
-  const [selectedBoard, setSelectedBoard] = useState('');
+const WriteTopSection = ({
+  selectedBoard,
+  title,
+  setSelectedBoard,
+  setTitle,
+}) => {
   const location = useLocation();
   const navigate = useNavigate();
 

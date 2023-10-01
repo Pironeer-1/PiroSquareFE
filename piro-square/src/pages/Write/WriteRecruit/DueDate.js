@@ -1,13 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import styled from 'styled-components';
 
-const DueDate = () => {
-  const today = new Date();
-  const [startDate, setStartDate] = useState(today);
-  const [endDate, setEndDate] = useState(null);
-
+const DueDate = ({ startDate, setStartDate, endDate, setEndDate }) => {
   const handleStartDateChange = date => {
     setStartDate(date);
   };

@@ -20,7 +20,7 @@ const Free = () => {
   };
 
   const handleWriteBtnClick = () => {
-    navigate('/write');
+    navigate('/write/free');
   };
 
   const [frees, setFrees] = useState([]);
