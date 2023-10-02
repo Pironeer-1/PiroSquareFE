@@ -1,7 +1,7 @@
 [
   {
     "id": 2,
-    "title": "해결된 질문",
+    "title": "미해결된 질문",
     "content": "숨 참고 딥다이브",
     "created_at": "2023.09.26",
     "updated_at": "2023.09.29",
@@ -11,7 +11,7 @@
     "is_solved": true,
     "is_user_like": false,
     "username": "화니정",
-    "activate": false
+    "activate": true
   },
 
   {
@@ -26,7 +26,7 @@
     "is_solved": true,
     "is_user_like": false,
     "username": "교육팀장",
-    "activate": false
+    "activate": true
   },
   {
     "id": 5,
@@ -40,7 +40,7 @@
     "is_solved": true,
     "is_user_like": false,
     "username": "낙성대총장",
-    "activate": false
+    "activate": true
   },
   {
     "id": 6,
@@ -54,7 +54,7 @@
     "is_solved": false,
     "is_user_like": false,
     "username": "영진운영진",
-    "activate": false
+    "activate": true
   },
   {
     "id": 7,
@@ -68,7 +68,7 @@
     "is_user_like": false,
     "is_solved": false,
     "username": "정부회장",
-    "activate": false
+    "activate": true
   },
   {
     "id": 8,
@@ -82,7 +82,7 @@
     "like_amount": 93,
     "is_user_like": false,
     "username": "교육팀장",
-    "activate": false
+    "activate": true
   },
   {
     "id": 9,
@@ -96,7 +96,7 @@
     "like_amount": 10,
     "is_user_like": false,
     "username": "기운팀장",
-    "activate": false
+    "activate": true
   },
   {
     "id": 10,
@@ -110,7 +110,7 @@
     "like_amount": 10,
     "is_user_like": false,
     "username": "홍보팀장",
-    "activate": false
+    "activate": true
   },
   {
     "id": 11,
@@ -124,7 +124,7 @@
     "like_amount": 10,
     "is_user_like": false,
     "username": "홍보팀장",
-    "activate": false
+    "activate": true
   },
   {
     "id": 12,
@@ -138,7 +138,7 @@
     "like_amount": 10,
     "is_user_like": false,
     "username": "홍보팀장",
-    "activate": false
+    "activate": true
   },
   {
     "id": 13,
@@ -152,48 +152,6 @@
     "like_amount": 10,
     "is_user_like": false,
     "username": "홍보팀장",
-    "activate": false
-  },
-  {
-    "id": 14,
-    "title": "비난하지 말기 프로젝트",
-    "content": "자스보다 좋다. 타스!",
-    "created_at": "2023.01.26",
-    "updated_at": "2023.01.29",
-    "answers_amount": 1,
-    "comments_count": 8,
-    "is_solved": false,
-    "like_amount": 10,
-    "is_user_like": false,
-    "username": "홍보팀장",
-    "activate": false
-  },
-  {
-    "id": 15,
-    "title": "바른말 쓰기 프로젝트",
-    "content": "자스보다 좋다. 타스!",
-    "created_at": "2023.01.26",
-    "updated_at": "2023.01.29",
-    "answers_amount": 1,
-    "comments_count": 8,
-    "is_solved": false,
-    "like_amount": 10,
-    "is_user_like": false,
-    "username": "홍보팀장",
-    "activate": false
-  },
-  {
-    "id": 16,
-    "title": "애니보기 프로젝트",
-    "content": "자스보다 좋다. 타스!",
-    "created_at": "2023.01.26",
-    "updated_at": "2023.01.29",
-    "answers_amount": 1,
-    "comments_count": 8,
-    "is_solved": false,
-    "like_amount": 10,
-    "is_user_like": false,
-    "username": "홍보팀장",
-    "activate": false
+    "activate": true
   }
 ]

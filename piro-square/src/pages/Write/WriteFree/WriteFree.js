@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import 'react-quill/dist/quill.snow.css';
 import WriteTopSection from '../WriteTopSection/WriteTopSection';
@@ -11,6 +11,7 @@ const WriteFree = () => {
   const [title, setTitle] = useState('');
   const [selectedBoard, setSelectedBoard] = useState('');
   const [content, setContent] = useState('');
+  const [btnAble, setBtnAble] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -32,6 +33,14 @@ const WriteFree = () => {
     navigate(nextUrl);
   };
 
+  useEffect(() => {
+    if (title.length >= 2 && content.length >= 10) {
+      setBtnAble(true);
+    } else {
+      setBtnAble(false);
+    }
+  }, [title, content]);
+
   // const onSubmit = () => {
   //   const body = {
   //     title: title,
@@ -44,15 +53,26 @@ const WriteFree = () => {
 
   const onSubmit = async event => {
     event.preventDefault();
+
     const url = `http://192.168.0.22:8000/post/create`;
     const body = {
       title: title,
       content: content,
     };
 
-    const result = await fetchPOST(url, body);
-    console.log(result);
-    handleLocation();
+    try {
+      const result = await fetchPOST(url, body);
+      console.log(result);
+
+      if (result.success) {
+        handleLocation();
+      } else {
+        alert('게시글 등록 실패! 다시 시도해주세요.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('게시글 등록 실패! 다시 시도해주세요.');
+    }
   };
 
   return (
@@ -67,7 +87,7 @@ const WriteFree = () => {
       <QuilContainer>
         <Quil content={content} setContent={setContent} />
       </QuilContainer>
-      <Register onSubmit={onSubmit} />
+      <Register onSubmit={onSubmit} btnAble={btnAble} />
     </Container>
   );
 };

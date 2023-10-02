@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { fetchPOST } from '../../../utils/utils';
 import { useParams } from 'react-router-dom';
 
-const LikeBtn = ({ initialLike, likeAmount }) => {
+const LikeBtn = ({ initialLike, likeAmount, post_id }) => {
   const [isLike, setIsLike] = useState(initialLike);
   const [currentLikeAmount, setCurrentLikeAmount] = useState(likeAmount || 0);
   let { id } = useParams();
@@ -31,6 +31,7 @@ const LikeBtn = ({ initialLike, likeAmount }) => {
     const body = {
       userId: 3,
       isLike: isLike,
+      post_id: post_id,
     };
 
     try {
@@ -43,11 +44,9 @@ const LikeBtn = ({ initialLike, likeAmount }) => {
       });
 
       if (response.ok) {
-        // 요청이 성공한 경우
         const result = await response.json();
         console.log(result);
       } else {
-        // 요청이 실패한 경우
         console.error(
           'POST request failed:',
           response.status,

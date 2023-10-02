@@ -4,15 +4,22 @@ import RecruitNav from '../RecruitNav';
 import StudyCard from './StudyCard';
 
 const Study = () => {
+  const [isRightPosition, setIsRightPosition] = useState(false);
   const [recruitments, setRecruitments] = useState([]);
   useEffect(() => {
-    fetch('/data/recruitStudy.json')
+    let fetchURL = '/data/recruitStudy.json';
+
+    if (isRightPosition) {
+      fetchURL = '/data/recruiting.json';
+    }
+
+    fetch(fetchURL)
       .then(response => response.json())
       .then(result => {
         setRecruitments(result);
         console.log(result);
       });
-  }, []);
+  }, [isRightPosition]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -41,7 +48,10 @@ const Study = () => {
   return (
     <>
       <Container>
-        <RecruitNav />
+        <RecruitNav
+          isRightPosition={isRightPosition}
+          setIsRightPosition={setIsRightPosition}
+        />
         {currentItems.map(recruitment => {
           return (
             <StudyCard

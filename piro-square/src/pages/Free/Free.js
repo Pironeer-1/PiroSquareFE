@@ -24,14 +24,26 @@ const Free = () => {
   };
 
   const [frees, setFrees] = useState([]);
+
   useEffect(() => {
-    fetch(`http://192.168.0.22:8000/post`)
-      .then(response => response.json())
-      .then(result => {
-        setFrees(result.posts);
-        console.log(result.posts);
-      });
-  }, []);
+    if (!isRightPosition) {
+      fetch('/data/freeData.json')
+        .then(response => response.json())
+        .then(result => {
+          setFrees([...result.posts]); // 새로운 배열로 상태 업데이트
+          console.log(result.posts);
+        });
+    } else {
+      // 인기순 데이터를 가져오는 로직
+      fetch('/data/likeFreeData.json')
+        .then(response => response.json())
+        .then(result => {
+          setFrees([...result.posts]); // 새로운 배열로 상태 업데이트
+          console.log(result.posts);
+        });
+    }
+  }, [isRightPosition]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -69,7 +81,7 @@ const Free = () => {
             return (
               <FreeCard
                 key={Free.post_id}
-                id={Free.post_id}
+                post_id={Free.post_id}
                 title={Free.title}
                 user_name={Free.user_name}
                 created_at={Free.created_at}

@@ -15,22 +15,40 @@ const FreeDetail = () => {
   };
   let { id } = useParams();
 
+  // useEffect(() => {
+  //   fetch(`http://192.168.0.22:8000/post/detail/${id}`)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setDetail(result.post);
+  //       console.log(result.post);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch(`http://192.168.0.22:8000/post/detail/${id}`)
+    fetch('data/freeDetail.json')
       .then(response => response.json())
       .then(result => {
-        setDetail(result?.post);
-        console.log(result?.post);
+        setDetail(result);
+        console.log(result);
       });
   }, []);
 
   const [comments, setComments] = useState([]);
+  // useEffect(() => {
+  //   fetch(`http://192.168.0.22:8000/post/detail/${id}`)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setComments(result?.comments);
+  //       console.log(result?.comments);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch(`http://192.168.0.22:8000/post/detail/${id}`)
+    fetch('data/comments.json')
       .then(response => response.json())
       .then(result => {
-        setComments(result?.comments);
-        console.log(result?.comments);
+        setDetail(result);
+        console.log(result);
       });
   }, []);
 

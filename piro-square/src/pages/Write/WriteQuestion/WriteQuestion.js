@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { useNavigate, useLocation } from 'react-router-dom';
 import 'react-quill/dist/quill.snow.css';
@@ -15,6 +15,7 @@ const WriteQuestion = () => {
   const [title, setTitle] = useState('');
   const [selectedBoard, setSelectedBoard] = useState('');
   const [content, setContent] = useState('');
+  const [btnAble, setBtnAble] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const editorRef = React.createRef();
@@ -42,7 +43,19 @@ const WriteQuestion = () => {
     navigate(nextUrl);
   };
 
-  const onSubmit = () => {
+  useEffect(() => {
+    if (title.length >= 2) {
+      setBtnAble(true);
+    } else {
+      setBtnAble(false);
+    }
+  }, [title]);
+
+  const onSubmit = async event => {
+    event.preventDefault();
+
+    const url = `http://192.168.0.22:8000/post/create`;
+
     const editorInstance = editorRef.current.getInstance();
     const markdownContent = editorInstance.getMarkdown();
 
@@ -52,7 +65,20 @@ const WriteQuestion = () => {
       selectedBoard: selectedBoard,
     };
     console.log(body);
-    handleLocation();
+
+    try {
+      const result = await fetchPOST(url, body);
+      console.log(result);
+
+      if (result.success) {
+        handleLocation();
+      } else {
+        alert('게시글 등록 실패! 다시 시도해주세요.');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      alert('게시글 등록 실패! 다시 시도해주세요.');
+    }
   };
   return (
     <Container>
@@ -75,7 +101,7 @@ const WriteQuestion = () => {
           value={content}
         />
       </QuilContainer>
-      <Register onSubmit={onSubmit} />
+      <Register onSubmit={onSubmit} btnAble={btnAble} />
     </Container>
   );
 };
