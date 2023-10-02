@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Paginator from '../../../components/Paginator/Paginator';
 import Comment from '../../../components/Comment/Comment';
 import LikeBtn from '../../../components/Button/LikeBtn/LikeBtn';
+import { useParams } from 'react-router-dom';
 
 const FreeDetail = () => {
   const [dataLoaded, setDataLoaded] = useState(false);
@@ -12,21 +13,42 @@ const FreeDetail = () => {
   const onClickListButton = () => {
     navigate(`/free`);
   };
+  let { id } = useParams();
+
+  // useEffect(() => {
+  //   fetch(`http://192.168.0.22:8000/post/detail/${id}`)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setDetail(result.post);
+  //       console.log(result.post);
+  //     });
+  // }, []);
 
   useEffect(() => {
-    fetch('/data/freeDetail.json')
+    fetch('data/freeDetail.json')
       .then(response => response.json())
       .then(result => {
         setDetail(result);
+        console.log(result);
       });
   }, []);
 
   const [comments, setComments] = useState([]);
+  // useEffect(() => {
+  //   fetch(`http://192.168.0.22:8000/post/detail/${id}`)
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setComments(result?.comments);
+  //       console.log(result?.comments);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch('/data/comments.json')
+    fetch('data/comments.json')
       .then(response => response.json())
       .then(result => {
-        setComments(result);
+        setDetail(result);
+        console.log(result);
       });
   }, []);
 
@@ -36,9 +58,9 @@ const FreeDetail = () => {
     }
   }, [detail.like_amount, detail.is_user_like]);
 
-  if (!dataLoaded) {
-    return <div>Loading...</div>;
-  }
+  // if (!dataLoaded) {
+  //   return <div>Loading...</div>;
+  // }
 
   return (
     <>
@@ -48,21 +70,21 @@ const FreeDetail = () => {
           <ListSpan>목록으로</ListSpan>
         </ListBtn>
         <TopSection>
-          <Title>{detail.title}</Title>
+          <Title>{detail?.title}</Title>
           <LikeBtn
-            initialLike={detail.is_user_like}
-            likeAmount={detail.like_amount}
+            initialLike={detail?.is_user_like}
+            likeAmount={detail?.like_amount}
           />
         </TopSection>
         <ContentBox>
           <ContentInfo>
             <UserSection>
-              <UserImg src={detail.profile} />
-              <UserName>{detail.username}</UserName>
+              <UserImg src={detail?.profile} />
+              <UserName>{detail?.user_name}</UserName>
             </UserSection>
-            <Created>{detail.created_at}</Created>
+            <Created>{detail?.created_at}</Created>
           </ContentInfo>
-          <ContentSection>{detail.content}</ContentSection>
+          <ContentSection>{detail?.content}</ContentSection>
         </ContentBox>
         <Comment comments={comments} />
       </Container>

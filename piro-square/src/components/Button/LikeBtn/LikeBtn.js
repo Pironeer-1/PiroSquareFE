@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { fetchPOST } from '../../../utils/utils';
+import { useParams } from 'react-router-dom';
 
-const LikeBtn = ({ initialLike, likeAmount }) => {
+const LikeBtn = ({ initialLike, likeAmount, post_id }) => {
   const [isLike, setIsLike] = useState(initialLike);
   const [currentLikeAmount, setCurrentLikeAmount] = useState(likeAmount || 0);
+  let { id } = useParams();
 
   const handleLikeToggle = newLikeStatus => {
     if (newLikeStatus) {
@@ -14,9 +17,45 @@ const LikeBtn = ({ initialLike, likeAmount }) => {
     setIsLike(newLikeStatus);
   };
 
-  const handleLike = () => {
+  const fehandleLike = () => {
     const newLikeStatus = !isLike;
     handleLikeToggle(newLikeStatus);
+  };
+
+  const handleLike = async event => {
+    event.preventDefault();
+
+    fehandleLike();
+
+    const url = `http://192.168.0.22:8000/like/post/${id}`;
+    const body = {
+      userId: 3,
+      isLike: isLike,
+      post_id: post_id,
+    };
+
+    try {
+      const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log(result);
+      } else {
+        console.error(
+          'POST request failed:',
+          response.status,
+          response.statusText,
+        );
+      }
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
 
   const isLikeImg = isLike

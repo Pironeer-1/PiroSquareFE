@@ -18,10 +18,6 @@ const QuestionSection = ({
     }
   }, [like_amount, is_user_like]);
 
-  if (!dataLoaded) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <Container>
       <TopSection>

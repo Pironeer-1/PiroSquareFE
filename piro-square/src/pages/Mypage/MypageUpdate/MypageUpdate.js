@@ -1,9 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import MypageNav from '../MypageNav';
+import { useNavigate } from 'react-router-dom';
 
 const MypageUpdate = () => {
   const [information, setInformation] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     fetch('/data/userData.json')
       .then(response => response.json())
@@ -12,10 +14,60 @@ const MypageUpdate = () => {
       });
   }, []);
 
-  // const [email, setEmail] = useState('');
-  // const [nickname, setNickname] = useState('');
-  // const [introduction, setIntroduction] = useState('');
-  // const [imgUrl, setImgUrl] = useState('');
+  const [email, setEmail] = useState(information?.email || '');
+  const [nickname, setNickname] = useState(information?.nickname || '');
+  const [introduction, setIntroduction] = useState(
+    information?.introduce || '',
+  );
+  const [imgUrl, setImgUrl] = useState(information?.image || '');
+  const inputRef = useRef(null);
+
+  const handleEmailChange = e => {
+    setEmail(e.target.value);
+  };
+
+  const handleImgChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setImgUrl(imageUrl);
+    }
+  };
+
+  const handleIntroductionChange = e => {
+    setIntroduction(e.target.value);
+  };
+
+  const handleNickNameChange = e => {
+    setNickname(e.target.value);
+  };
+
+  const onSubmit = () => {
+    const body = {
+      email: email,
+      nickname: nickname,
+      introduction: introduction,
+      imgUrl: imgUrl,
+    };
+    navigate(`/my-page/card`);
+    console.log(body);
+  };
+
+  // const onSubmit = async event => {
+  //   event.preventDefault();
+  //   const url = 'http://localhost:8000/post/create';
+  //   const body = {
+  // email: email,
+  // nickname: nickname,
+  // introduction: introduction,
+  // imgUrl: imgUrl,
+  //   };
+  //   const result = await fetchPOST(url, body);
+  //   console.log(result);
+  //   setTitle('');
+  //   setContent('');
+  //   navigate('/');
+  // };
 
   return (
     <Container>
@@ -23,27 +75,41 @@ const MypageUpdate = () => {
       <MainInformation>
         <InformationBox>
           <InfoTitle>이름</InfoTitle>
-          <InfoContent>{information.name}</InfoContent>
+          <InfoContent>{information?.name}</InfoContent>
         </InformationBox>
         <InformationBox>
           <InfoTitle>기수</InfoTitle>
-          <InfoContent>{information.year}</InfoContent>
+          <InfoContent>{information?.year}</InfoContent>
         </InformationBox>
       </MainInformation>
       <DownInformation>
         <Email>
           <EmailBox>
             <EmailTitle>이메일</EmailTitle>
-            <EmailContent placeholder={information.email} />
+            <EmailContent
+              placeholder={information?.email}
+              type="email"
+              value={email}
+              onChange={handleEmailChange}
+            />
           </EmailBox>
           <EmailLabel>이메일 주소 '@' 포함</EmailLabel>
         </Email>
         <SubInformation>
           <ImgSection>
             <ProfileImgSection>
-              <ProfileImg src={information.image} />
+              <ProfileImg src={imgUrl ? imgUrl : information?.image} />
+              <ProfileInput
+                type="file"
+                accept="image/*"
+                onChange={handleImgChange}
+                style={{ display: 'none' }}
+                ref={inputRef}
+              />
             </ProfileImgSection>
-            <ImgBtn>이미지 변경</ImgBtn>
+            <ImgBtn onClick={() => inputRef.current.click()}>
+              이미지 변경
+            </ImgBtn>
             <ImgLabel>이미지 비율 11:14 권장</ImgLabel>
           </ImgSection>
 
@@ -51,22 +117,33 @@ const MypageUpdate = () => {
             <NickName>
               <NickNameBox>
                 <NickNameTitle>닉네임</NickNameTitle>
-                <NickNameContent placeholder={information.nickname} />
+                <NickNameContent
+                  placeholder={information?.nickname}
+                  type="text"
+                  value={nickname}
+                  onChange={handleNickNameChange}
+                />
               </NickNameBox>
               <NickNameLabel>10자 이하</NickNameLabel>
             </NickName>
             <Introduce>
               <IntroduceTitle>소개</IntroduceTitle>
-              <IntroduceContent placeholder={information.introduce} />
+              <IntroduceContent
+                placeholder={information?.introduce}
+                type="text"
+                value={introduction}
+                onChange={handleIntroductionChange}
+              />
               <IntroduceLabel>40자 이하</IntroduceLabel>
             </Introduce>
           </SubInfoSection>
         </SubInformation>
-        <UpdateBtn>수정하기</UpdateBtn>
+        <UpdateBtn onClick={onSubmit}>수정하기</UpdateBtn>
       </DownInformation>
     </Container>
   );
 };
+
 export default MypageUpdate;
 
 const Container = styled.div`
@@ -146,6 +223,7 @@ const ProfileImg = styled.img`
   width: 11rem;
   height: 14rem;
 `;
+const ProfileInput = styled.input``;
 const SubInfoSection = styled.div`
   display: flex;
   flex-direction: column;
@@ -235,6 +313,7 @@ const ImgBtn = styled.button`
   background-color: ${props => props.theme.colors.black};
   &:hover {
     cursor: pointer;
+    background-color: ${props => props.theme.colors.grayLight};
   }
 `;
 

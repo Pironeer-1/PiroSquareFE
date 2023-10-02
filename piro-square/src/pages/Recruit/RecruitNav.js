@@ -8,14 +8,14 @@ const MENU_LIST = [
   { id: 2, title: '프로젝트 모집', link: '/recruit-project' },
   { id: 3, title: '채용 공고', link: '/recruit-company' },
 ];
-const RecruitNav = () => {
+const RecruitNav = ({ isRightPosition, setIsRightPosition }) => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeMenu, setActiveMenu] = useState('');
-  const [isRightPosition, setIsRightPosition] = useState(false);
 
   const handleFilterBtnClick = () => {
-    setIsRightPosition(!isRightPosition);
+    const newIsRightPosition = !isRightPosition;
+    setIsRightPosition(newIsRightPosition);
   };
 
   React.useEffect(() => {

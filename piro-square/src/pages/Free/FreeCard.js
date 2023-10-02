@@ -4,9 +4,9 @@ import LikeBtn from '../../components/Button/LikeBtn/LikeBtn';
 import { useNavigate } from 'react-router-dom';
 
 const FreeCard = ({
-  id,
+  post_id,
   title,
-  username,
+  user_name,
   created_at,
   is_user_like,
   like_amount,
@@ -15,7 +15,7 @@ const FreeCard = ({
 }) => {
   const navigate = useNavigate();
   const onClickDetailButton = () => {
-    navigate(`/free-detail/${id}`);
+    navigate(`/free-detail/${post_id}`);
   };
   return (
     <FreeBox>
@@ -25,7 +25,7 @@ const FreeCard = ({
       <Container onClick={onClickDetailButton}>
         <CardTitle>{title}</CardTitle>
         <CardBottom>
-          <CardAuthor>{username}</CardAuthor>
+          <CardAuthor>{user_name}</CardAuthor>
           <CardDate>{created_at}</CardDate>
           <CardComment>
             <CommentImg src="/images/Mypage/chat_g.png" />
@@ -34,7 +34,11 @@ const FreeCard = ({
         </CardBottom>
       </Container>
       <RightSection>
-        <LikeBtn initialLike={is_user_like} likeAmount={like_amount} />
+        <LikeBtn
+          initialLike={is_user_like}
+          likeAmount={like_amount}
+          post_id={post_id}
+        />
       </RightSection>
     </FreeBox>
   );

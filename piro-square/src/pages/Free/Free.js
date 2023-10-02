@@ -20,17 +20,30 @@ const Free = () => {
   };
 
   const handleWriteBtnClick = () => {
-    navigate('/write');
+    navigate('/write/free');
   };
 
   const [frees, setFrees] = useState([]);
+
   useEffect(() => {
-    fetch('/data/FreeData.json')
-      .then(response => response.json())
-      .then(result => {
-        setFrees(result);
-      });
-  }, []);
+    if (!isRightPosition) {
+      fetch('/data/freeData.json')
+        .then(response => response.json())
+        .then(result => {
+          setFrees([...result.posts]); // 새로운 배열로 상태 업데이트
+          console.log(result.posts);
+        });
+    } else {
+      // 인기순 데이터를 가져오는 로직
+      fetch('/data/likeFreeData.json')
+        .then(response => response.json())
+        .then(result => {
+          setFrees([...result.posts]); // 새로운 배열로 상태 업데이트
+          console.log(result.posts);
+        });
+    }
+  }, [isRightPosition]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -67,14 +80,14 @@ const Free = () => {
           {currentItems.map(Free => {
             return (
               <FreeCard
-                key={Free.id}
-                id={Free.id}
+                key={Free.post_id}
+                post_id={Free.post_id}
                 title={Free.title}
-                username={Free.username}
+                user_name={Free.user_name}
                 created_at={Free.created_at}
                 answers_amount={Free.answers_amount}
                 is_user_like={Free.is_user_like}
-                like_amount={Free.like_amount}
+                like_amount={Free.likes_count}
                 thumbnail={Free.thumbnail}
                 comment_count={Free.comments_count}
               />

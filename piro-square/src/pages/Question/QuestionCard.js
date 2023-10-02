@@ -9,7 +9,6 @@ const QuestionCard = ({
   username,
   created_at,
   is_solved,
-  answers_amount,
   is_user_like,
   like_amount,
 }) => {
@@ -18,8 +17,8 @@ const QuestionCard = ({
     navigate(`/question-detail/${id}`);
   };
   const availibilityImg = is_solved
-    ? '/images/Question/solved.png'
-    : '/images/Question/unsolved.png';
+    ? '/images/Question/unsolved.png'
+    : '/images/Question/solved.png';
 
   return (
     <QuestionBox>
@@ -30,10 +29,6 @@ const QuestionCard = ({
         <CardTitle>{title}</CardTitle>
         <CardBottom>
           <CardAuthor>{username}</CardAuthor>
-          <CardAnswers>
-            <AnswersSpan>답변:</AnswersSpan>
-            {answers_amount}
-          </CardAnswers>
           <CardDate>{created_at}</CardDate>
         </CardBottom>
       </Container>

@@ -6,6 +6,7 @@ import SubInfoSection from './QuestionSection/SubInfoSection';
 import AnswerRegister from './AnswerRegister/AnswerRegister';
 import AnswerSection from './AnswerSection/AnswerSection';
 import Paginator from '../../../components/Paginator/Paginator';
+import { useParams } from 'react-router-dom';
 
 const QuestionDetail = () => {
   const [isAnswerVisible, setIsAnswerVisible] = useState(false);
@@ -13,24 +14,37 @@ const QuestionDetail = () => {
     setIsAnswerVisible(!isAnswerVisible);
   };
 
+  let { id } = useParams();
   const [questionDetail, setQuestionDetail] = useState([]);
   useEffect(() => {
-    fetch('/data/questionDetail.json')
+    fetch(`http://192.168.0.22:8000/question/detail/${id}`)
       .then(response => response.json())
       .then(result => {
-        setQuestionDetail(result);
+        setQuestionDetail(result.question);
+        console.log('Q', result.question);
       });
   }, []);
 
   const [answerDetail, setAnswerDetail] = useState([]);
+  // useEffect(() => {
+  //   fetch('/data/answers.json')
+  //     .then(response => response.json())
+  //     .then(result => {
+  //       setAnswerDetail(result);
+  //     });
+  // }, []);
+
   useEffect(() => {
-    fetch('/data/answers.json')
+    fetch(`http://192.168.0.22:8000/question/detail/${id}`)
       .then(response => response.json())
       .then(result => {
-        setAnswerDetail(result);
+        setAnswerDetail(result.comments);
+        console.log(result.comments);
+        console.log('A', result.comments);
       });
   }, []);
 
+  console.log('a', answerDetail);
   const navigate = useNavigate();
   const onClickListButton = () => {
     navigate(`/question`);

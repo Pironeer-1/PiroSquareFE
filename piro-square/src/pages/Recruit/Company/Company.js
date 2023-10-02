@@ -4,15 +4,22 @@ import RecruitNav from '../RecruitNav';
 import CompanyCard from './CompanyCard';
 
 const Company = () => {
+  const [isRightPosition, setIsRightPosition] = useState(false);
   const [recruitments, setRecruitments] = useState([]);
   useEffect(() => {
-    fetch('/data/recruitCompany.json')
+    let fetchURL = '/data/recruitCompany.json';
+
+    if (isRightPosition) {
+      fetchURL = '/data/recruiting.json';
+    }
+
+    fetch(fetchURL)
       .then(response => response.json())
       .then(result => {
         setRecruitments(result);
         console.log(result);
       });
-  }, []);
+  }, [isRightPosition]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -41,7 +48,10 @@ const Company = () => {
   return (
     <>
       <Container>
-        <RecruitNav />
+        <RecruitNav
+          isRightPosition={isRightPosition}
+          setIsRightPosition={setIsRightPosition}
+        />
         {currentItems.map(recruitment => {
           return (
             <CompanyCard

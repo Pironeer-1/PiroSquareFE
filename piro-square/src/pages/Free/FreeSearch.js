@@ -24,15 +24,16 @@ const FreeSearch = () => {
   const navigate = useNavigate();
 
   const handleWriteBtnClick = () => {
-    navigate('/write');
+    navigate('/write/free');
   };
 
   const [frees, setFrees] = useState([]);
+
   useEffect(() => {
-    fetch('/data/FreeData.json')
+    fetch(`http://192.168.0.22:8000/post/search?keyword=${value}`)
       .then(response => response.json())
       .then(result => {
-        setFrees(result);
+        setFrees(result.posts);
       });
   }, []);
 
@@ -46,10 +47,6 @@ const FreeSearch = () => {
   //       setLoading(false);
   //     });
   // }, []);
-
-  const filteredFrees = frees.filter(Free => {
-    return Free.title.includes(searchKeyword);
-  });
 
   const availabilityClassName = isRightPosition ? 'greenWord' : 'grayWord';
 
@@ -72,13 +69,13 @@ const FreeSearch = () => {
         <WriteBtn onClick={handleWriteBtnClick}>글쓰기</WriteBtn>
       </TopSection>
       <BottomSection>
-        {filteredFrees.map(Free => {
+        {frees.map(Free => {
           return (
             <FreeCard
-              key={Free.id}
-              id={Free.id}
+              key={Free.post_id}
+              id={Free.post_id}
               title={Free.title}
-              username={Free.username}
+              username={Free.user_name}
               created_at={Free.created_at}
               answers_amount={Free.answers_amount}
               is_user_like={Free.is_user_like}

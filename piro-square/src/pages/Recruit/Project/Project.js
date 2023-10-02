@@ -4,15 +4,22 @@ import RecruitNav from '../RecruitNav';
 import ProjectCard from './ProjectCard';
 
 const Project = () => {
+  const [isRightPosition, setIsRightPosition] = useState(false);
   const [recruitments, setRecruitments] = useState([]);
   useEffect(() => {
-    fetch('/data/recruitProject.json')
+    let fetchURL = '/data/recruitProject.json';
+
+    if (isRightPosition) {
+      fetchURL = '/data/recruiting.json';
+    }
+
+    fetch(fetchURL)
       .then(response => response.json())
       .then(result => {
         setRecruitments(result);
         console.log(result);
       });
-  }, []);
+  }, [isRightPosition]);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
@@ -41,7 +48,10 @@ const Project = () => {
   return (
     <>
       <Container>
-        <RecruitNav />
+        <RecruitNav
+          isRightPosition={isRightPosition}
+          setIsRightPosition={setIsRightPosition}
+        />
         {currentItems.map(recruitment => {
           return (
             <ProjectCard
