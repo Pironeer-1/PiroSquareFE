@@ -6,12 +6,15 @@ import html2canvas from 'html2canvas';
 const Mypage = () => {
   const [information, setInformation] = useState([]);
   useEffect(() => {
-    fetch('/data/userData.json')
+    fetch(`http://192.168.0.52:8000/home`)
       .then(response => response.json())
       .then(result => {
         setInformation(result);
+        console.log(result);
       });
   }, []);
+
+  console.log(information);
   const CardRef = useRef(null);
 
   const FrontImgBase64 = information.image;

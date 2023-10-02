@@ -8,12 +8,12 @@ const CommentSection = ({ comments }) => {
       {comments?.map(Reply => {
         return (
           <CommentCard
-            key={Reply.id}
-            id={Reply.id}
-            username={Reply.username}
+            key={Reply.comment_id}
+            id={Reply.comment_id}
+            username={Reply.user_name}
             created_at={Reply.created_at}
             content={Reply.content}
-            like_amount={Reply.like_amount}
+            like_amount={Reply.likes_count}
             profile_img={Reply.profile_img}
             is_user_like={Reply.is_user_like}
           />

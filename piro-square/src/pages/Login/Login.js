@@ -13,7 +13,7 @@ const LOGIN_MENT = [
 
 const Login = () => {
   const Naver = () => {
-    window.open('http://localhost:8000/auth/naver', '_self');
+    window.open('http://192.168.0.52:8000/naver', '_self');
   };
   const [currentMentIndex, setCurrentMentIndex] = useState(0);
 

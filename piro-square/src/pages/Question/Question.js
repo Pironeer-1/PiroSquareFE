@@ -24,12 +24,13 @@ const Question = () => {
 
   const [questions, setQuestions] = useState([]);
   useEffect(() => {
-    fetch('/data/questionData.json')
+    fetch(`http://192.168.0.22:8000/question`)
       .then(response => response.json())
       .then(result => {
-        setQuestions(result);
+        setQuestions(result.question_posts);
       });
   }, []);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 4;
   const indexOfLastItem = currentPage * itemsPerPage;
@@ -64,15 +65,14 @@ const Question = () => {
           {currentItems.map(question => {
             return (
               <QuestionCard
-                key={question.id}
-                id={question.id}
+                key={question.post_id}
+                id={question.post_id}
                 title={question.title}
-                username={question.username}
+                username={question.user_name}
                 created_at={question.created_at}
-                answers_amount={question.answers_amount}
                 is_user_like={question.is_user_like}
-                is_solved={question.is_solved}
-                like_amount={question.like_amount}
+                is_solved={question.activate}
+                like_amount={question.likes_count}
               />
             );
           })}

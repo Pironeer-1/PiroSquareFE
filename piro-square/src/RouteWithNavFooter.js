@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Routes, Route } from 'react-router-dom';
+import { AuthContext } from './context/auth-context';
 import Nav from './components/Nav/Nav';
 import Main from './pages/Main/Main';
 import Free from './pages/Free/Free';
@@ -29,6 +30,8 @@ import FreeSearch from './pages/Free/FreeSearch';
 import QuestionSearch from './pages/Question/QuestionSearch';
 
 const RouteWithNavFooter = () => {
+  const auth = useContext(AuthContext);
+
   return (
     <>
       <Nav />

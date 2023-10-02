@@ -29,34 +29,31 @@ const WriteFree = () => {
     } else if (currentPathname === '/write/recruit/company') {
       nextUrl = `/recruit-company`;
     }
-
     navigate(nextUrl);
   };
 
-  const onSubmit = () => {
-    const body = {
-      title: title,
-      content: content,
-      selectedBoard: selectedBoard,
-    };
-    console.log(body);
-    handleLocation();
-  };
-
-  // const onSubmit = async event => {
-  //   event.preventDefault();
-  //   const url = 'http://localhost:8000/post/create';
+  // const onSubmit = () => {
   //   const body = {
   //     title: title,
   //     content: content,
   //     selectedBoard: selectedBoard,
   //   };
-  //   const result = await fetchPOST(url, body);
-  //   console.log(result);
-  //   setTitle('');
-  //   setContent('');
-  //   navigate('/');
+  //   console.log(body);
+  //   handleLocation();
   // };
+
+  const onSubmit = async event => {
+    event.preventDefault();
+    const url = `http://192.168.0.22:8000/post/create`;
+    const body = {
+      title: title,
+      content: content,
+    };
+
+    const result = await fetchPOST(url, body);
+    console.log(result);
+    handleLocation();
+  };
 
   return (
     <Container>

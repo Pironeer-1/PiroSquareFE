@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 const FreeCard = ({
   id,
   title,
-  username,
+  user_name,
   created_at,
   is_user_like,
   like_amount,
@@ -25,7 +25,7 @@ const FreeCard = ({
       <Container onClick={onClickDetailButton}>
         <CardTitle>{title}</CardTitle>
         <CardBottom>
-          <CardAuthor>{username}</CardAuthor>
+          <CardAuthor>{user_name}</CardAuthor>
           <CardDate>{created_at}</CardDate>
           <CardComment>
             <CommentImg src="/images/Mypage/chat_g.png" />
