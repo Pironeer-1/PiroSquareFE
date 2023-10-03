@@ -6,11 +6,13 @@ import html2canvas from 'html2canvas';
 const Mypage = () => {
   const [information, setInformation] = useState([]);
   useEffect(() => {
-    fetch(`http://192.168.0.52:8000/home`)
+    fetch(`http://localhost:8000/mypage`, {
+      method: 'GET',
+      credentials: 'include',
+    })
       .then(response => response.json())
       .then(result => {
-        setInformation(result);
-        console.log(result);
+        setInformation(result?.userInfo[0]);
       });
   }, []);
 
