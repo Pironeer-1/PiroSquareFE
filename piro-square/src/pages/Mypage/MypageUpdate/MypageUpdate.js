@@ -2,15 +2,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import MypageNav from '../MypageNav';
 import { useNavigate } from 'react-router-dom';
+import { fetchPOST } from '../../../utils/utils';
 
 const MypageUpdate = () => {
   const [information, setInformation] = useState([]);
   const navigate = useNavigate();
+
   useEffect(() => {
-    fetch('/data/userData.json')
+    fetch(`http://192.168.1.184:8000/mypage`, {
+      method: 'GET',
+      credentials: 'include',
+    })
+      // fetch('/data/userData.json')
       .then(response => response.json())
       .then(result => {
-        setInformation(result);
+        setInformation(result?.userInfo[0]);
       });
   }, []);
 
@@ -42,15 +48,25 @@ const MypageUpdate = () => {
     setNickname(e.target.value);
   };
 
-  const onSubmit = () => {
+  const user_id = information.user_id;
+  console.log('user_id', user_id);
+
+  const onSubmit = async event => {
+    event.preventDefault();
+    const url = `http://192.168.1.184:8000/mypage/updateUser/${user_id}`;
+    console.log(url);
     const body = {
       email: email,
       nickname: nickname,
-      introduction: introduction,
-      imgUrl: imgUrl,
+      introduce: introduction,
+      image: imgUrl,
+      user_id: user_id,
     };
-    navigate(`/my-page/card`);
     console.log(body);
+    console.log(url);
+    const result = await fetchPOST(url, body);
+    console.log(result);
+    navigate('/my-page/card');
   };
 
   // const onSubmit = async event => {

@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
+import { AuthContext } from '../../context/auth-context';
 
 const LOGIN_MENT = [
   {
@@ -13,7 +15,24 @@ const LOGIN_MENT = [
 
 const Login = () => {
   const Naver = () => {
-    window.open('http://192.168.0.52:8000/naver', '_self');
+    const popup = window.open(
+      'http://localhost:8000/naver',
+      '_blank',
+      'width=400,height=400',
+    );
+    const handleLoginComplete = () => {
+      popup.close();
+
+      window.postMessage('loginComplete', window.origin);
+    };
+    window.addEventListener('message', event => {
+      if (
+        event.origin === `http://localhost:8000/` &&
+        event.data === 'loginComplete'
+      ) {
+        handleLoginComplete();
+      }
+    });
   };
   const [currentMentIndex, setCurrentMentIndex] = useState(0);
 
@@ -49,6 +68,7 @@ const Login = () => {
       <LoginBtn>
         <BtnImg src="images/Login/btnD.png" onClick={Naver} />
       </LoginBtn>
+
       <LoginBottom>
         <LoginInfo>아직 회원이 아니라면?</LoginInfo>
         <Contact>문의하기</Contact>
