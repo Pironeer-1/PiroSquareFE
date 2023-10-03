@@ -15,7 +15,7 @@ const Router = () => {
       const response = await axios.get(`http://localhost:8000/api/userdata`, {
         withCredentials: true,
       });
-      const userData = response.data;
+      const userData = response?.data;
       setUserData(userData);
       setIsLoggedIn(!!userData);
     } catch (error) {
@@ -24,9 +24,12 @@ const Router = () => {
   };
 
   console.log('유저데이터', userData);
+
   useEffect(() => {
-    fetchUserData();
-  }, []);
+    if (isLoggedIn) {
+      fetchUserData();
+    }
+  }, [isLoggedIn]);
 
   const login = useCallback(() => {
     setIsLoggedIn(true);
